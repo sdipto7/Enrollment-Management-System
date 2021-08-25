@@ -23,7 +23,8 @@ public class Course implements Serializable {
     @Column(name = "courseTitle")
     private String courseTitle;
 
-    public Course(){}
+    public Course() {
+    }
 
     public Course(String courseCode, String courseTitle) {
         this.courseCode = courseCode;

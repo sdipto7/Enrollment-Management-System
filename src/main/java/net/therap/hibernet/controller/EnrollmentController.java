@@ -1,6 +1,7 @@
 package net.therap.hibernet.controller;
 
 import net.therap.hibernet.domain.Course;
+import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.domain.User;
 
 import javax.persistence.EntityManager;
@@ -17,10 +18,7 @@ public class EnrollmentController {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        User trainee = entityManager.find(User.class, 102);
-        System.out.println(trainee);
-
-        Course course = entityManager.find(Course.class, "CS204");
-        System.out.println(course);
+        Enrollment enrollment = entityManager.find(Enrollment.class, 2);
+        System.out.println(enrollment.getCourse());
     }
 }

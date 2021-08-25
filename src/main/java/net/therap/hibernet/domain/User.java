@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +12,7 @@ import java.util.Objects;
  * @since 8/9/21
  */
 @Entity
-@Table(name = "trainee")
+@Table(name = "user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,9 +50,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Trainee{" +
-                "traineeId=" + id +
-                ", traineeName='" + name + '\'' +
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 '}';
     }
 

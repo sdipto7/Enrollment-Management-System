@@ -10,6 +10,7 @@
 
         <class>net.therap.hibernet.domain.User</class>
         <class>net.therap.hibernet.domain.Course</class>
+        <class>net.therap.hibernet.domain.Enrollment</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver"
