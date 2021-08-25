@@ -1,5 +1,6 @@
 package net.therap.hibernet.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,25 +14,30 @@ import java.io.Serializable;
 @Table(name = "enrollment")
 public class Enrollment implements Comparable<Enrollment>, Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-    private Trainee trainee;
+    @Id
+    @Column(name = "id")
+    private int id;
+
+    private User user;
 
     private Course course;
 
     public Enrollment(){
     }
 
-    public Enrollment(Trainee traineeValue, Course courseValue) {
-        trainee = traineeValue;
-        course = courseValue;
+    public Enrollment(User user, Course course) {
+        this.user = user;
+        this.course = course;
     }
 
-    public Trainee getTrainee() {
-        return trainee;
+    public User getUser() {
+        return user;
     }
 
-    public void setTrainee(Trainee trainee) {
-        this.trainee = trainee;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Course getCourse() {
@@ -44,6 +50,6 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
 
     @Override
     public int compareTo(Enrollment enrollment) {
-        return this.getTrainee().getTraineeId() - enrollment.getTrainee().getTraineeId();
+        return this.getUser().getId() - enrollment.getUser().getId();
     }
 }

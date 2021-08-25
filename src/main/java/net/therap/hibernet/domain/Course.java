@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Table(name = "course")
 public class Course implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "courseCode")
     private String courseCode;
@@ -23,9 +25,9 @@ public class Course implements Serializable {
 
     public Course(){}
 
-    public Course(String courseCodeValue, String courseTitleValue) {
-        courseCode = courseCodeValue;
-        courseTitle = courseTitleValue;
+    public Course(String courseCode, String courseTitle) {
+        this.courseCode = courseCode;
+        this.courseTitle = courseTitle;
     }
 
     public String getCourseCode() {
