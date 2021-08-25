@@ -1,12 +1,9 @@
 package net.therap.hibernet.controller;
 
-import net.therap.hibernet.domain.Course;
+import net.therap.hibernet.dao.EnrollmentDao;
 import net.therap.hibernet.domain.Enrollment;
-import net.therap.hibernet.domain.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
 /**
  * @author rumi.dipto
@@ -15,10 +12,26 @@ import javax.persistence.Persistence;
 public class EnrollmentController {
 
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Enrollment enrollment = entityManager.find(Enrollment.class, 2);
-        System.out.println(enrollment.getCourse());
+//        CourseDao courseDao = new CourseDao();
+////        courseDao.add("CS206", "Introduction to Spring Framework");
+////        courseDao.update("CS206", "Introduction to Spring Framework");
+////        courseDao.delete("CS206");
+//        List<Course> courses = courseDao.getAll();
+//        for (Course course : courses){
+//            System.out.println(course);
+//        }
+
+        EnrollmentDao enrollmentDao = new EnrollmentDao();
+//        enrollmentDao.add(104, "CS205");
+//        enrollmentDao.delete(13);
+        enrollmentDao.update(14, 101, "CS204");
+        List<Enrollment> enrollmentList = enrollmentDao.getAll();
+        for (Enrollment enrollment : enrollmentList) {
+            System.out.println(enrollment);
+        }
+
     }
 }

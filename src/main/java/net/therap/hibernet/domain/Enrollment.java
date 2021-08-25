@@ -15,6 +15,7 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
@@ -52,7 +53,8 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
     @Override
     public String toString() {
         return "Enrollment{" +
-                "user=" + user +
+                "id=" + id +
+                ", user=" + user +
                 ", course=" + course +
                 '}';
     }

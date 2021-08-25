@@ -1,7 +1,5 @@
 package net.therap.hibernet.dao;
 
-import net.therap.hibernet.domain.Course;
-import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.domain.User;
 
 import javax.persistence.EntityManager;
@@ -14,50 +12,53 @@ import java.util.List;
  * @author rumi.dipto
  * @since 8/25/21
  */
-public class EnrollmentDao {
+public class UserDao {
 
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
 
-    public List<Enrollment> getAll(){
+    public List<User> getAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Query query = entityManager.createQuery("from Enrollment");
+        Query query = entityManager.createQuery("from User");
 
         return query.getResultList();
     }
 
-    public void add(int userId, String courseCode){
+    public User get(int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        User user = new UserDao().get(userId);
-        Course course = new CourseDao().get(courseCode);
-        Enrollment enrollment = new Enrollment();
-        enrollment.setUser(user);
-        enrollment.setCourse(course);
 
+        return entityManager.find(User.class, id);
+    }
+
+    public void update(int id, String newName) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        User user = entityManager.find(User.class, id);
         entityManager.getTransaction().begin();
-        entityManager.persist(enrollment);
+        user.setName(newName);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public void update(int id, int userId, String courseCode){
+    public void add(int id, String name) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        User user = new UserDao().get(userId);
-        Course course = new CourseDao().get(courseCode);
-        Enrollment enrollment = entityManager.find(Enrollment.class, id);
+
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
 
         entityManager.getTransaction().begin();
-        enrollment.setUser(user);
-        enrollment.setCourse(course);
+
+        entityManager.persist(user);
+
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Enrollment enrollment = entityManager.find(Enrollment.class, id);
+        User user = entityManager.find(User.class, id);
         entityManager.getTransaction().begin();
-        entityManager.remove(enrollment);
+        entityManager.remove(user);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
