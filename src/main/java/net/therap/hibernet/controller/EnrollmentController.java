@@ -24,7 +24,7 @@ public class EnrollmentController {
         while (true) {
             System.out.println("Press 0 to exit");
             System.out.println("Press 1 to view courses");
-            System.out.println("Press 2 to view trainees");
+            System.out.println("Press 2 to view users");
             System.out.println("Press 3 to view course enrollment details");
             System.out.println("Press 4 to add a new course");
             System.out.println("Press 5 to add a new user");
@@ -32,9 +32,12 @@ public class EnrollmentController {
             System.out.println("Press 7 to update a course information");
             System.out.println("Press 8 to update an user information");
             System.out.println("Press 9 to update an enrollment information");
-            System.out.println("Press 10 to delete a course information");
-            System.out.println("Press 11 to delete an user information");
-            System.out.println("Press 12 to delete an enrollment information");
+            System.out.println("Press 10 to view a specific course information");
+            System.out.println("Press 11 to view a specific user information");
+            System.out.println("Press 12 to view a specific enrollment information");
+            System.out.println("Press 13 to delete a course information");
+            System.out.println("Press 14 to delete an user information");
+            System.out.println("Press 15 to delete an enrollment information");
 
             int operation = input.nextInt();
             if (operation == 0) {
@@ -55,43 +58,47 @@ public class EnrollmentController {
 
         String courseCode;
 
-        int id;
+        int userId;
+
+        int enrollmentId;
 
         Scanner input = new Scanner(System.in);
 
         switch (operation) {
             case 1:
-                List<Course> courseList = courseService.getCourses();
-                EnrollmentView.printCourseInformation(courseList);
+                List<Course> courseList = courseService.getCourseList();
+                EnrollmentView.printCourseList(courseList);
                 break;
 
             case 2:
-                List<User> userList = userService.getUsers();
-                EnrollmentView.printUserInformation(userList);
+                List<User> userList = userService.getUserList();
+                EnrollmentView.printUserList(userList);
                 break;
 
             case 3:
-                List<Enrollment> enrollmentList = enrollmentService.getEnrollments();
-                EnrollmentView.printEnrollmentInformation(enrollmentList);
+                List<Enrollment> enrollmentList = enrollmentService.getEnrollmentList();
+                EnrollmentView.printEnrollmentList(enrollmentList);
                 break;
 
             case 4:
                 System.out.println("Enter new course code: ");
-                courseCode = input.next();
+                courseCode = input.nextLine();
                 System.out.println("Enter new course title: ");
                 String courseTitle = input.nextLine();
                 courseService.addCourse(courseCode, courseTitle);
+                break;
 
             case 5:
                 System.out.println("Enter new user's id: ");
-                id = input.nextInt();
+                userId = input.nextInt();
                 System.out.println("Enter new user's name: ");
                 String name = input.nextLine();
-                userService.addUser(id, name);
+                userService.addUser(userId, name);
+                break;
 
             case 6:
                 System.out.println("Enter user id");
-                int userId = input.nextInt();
+                userId = input.nextInt();
                 System.out.println("Enter course code");
                 courseCode = input.next();
                 enrollmentService.addEnrollment(userId, courseCode);
@@ -103,37 +110,64 @@ public class EnrollmentController {
                 System.out.println("Enter the new title: ");
                 String newCourseTitle = input.nextLine();
                 courseService.updateCourse(courseCode, newCourseTitle);
+                break;
 
             case 8:
                 System.out.println("Enter the user id: ");
-                id = input.nextInt();
+                userId = input.nextInt();
                 System.out.println("Enter new name: ");
                 String newName = input.nextLine();
-                userService.updateUser(id, newName);
+                userService.updateUser(userId, newName);
+                break;
 
             case 9:
                 System.out.println("Enter the id of enrollment: ");
-                int enrollmentId = input.nextInt();
+                enrollmentId = input.nextInt();
                 System.out.println("Enter the new user id: ");
                 int newUserId = input.nextInt();
                 System.out.println("Enter the new course code: ");
-                String newCourseCode = input.nextLine();
+                String newCourseCode = input.next();
                 enrollmentService.updateEnrollment(enrollmentId, newUserId, newCourseCode);
+                break;
 
             case 10:
                 System.out.println("Enter the course code: ");
                 courseCode = input.next();
-                courseService.deleteCourse(courseCode);
+                Course course = courseService.getCourse(courseCode);
+                EnrollmentView.printCourse(course);
+                break;
 
             case 11:
                 System.out.println("Enter the user's id: ");
-                id = input.nextInt();
-                userService.deleteUser(id);
+                userId = input.nextInt();
+                User user = userService.getUser(userId);
+                EnrollmentView.printUser(user);
+                break;
 
             case 12:
                 System.out.println("Enter the enrollment id: ");
-                id = input.nextInt();
-                enrollmentService.deleteEnrollment(id);
+                enrollmentId = input.nextInt();
+                Enrollment enrollment = enrollmentService.getEnrollment(enrollmentId);
+                EnrollmentView.printEnrollment(enrollment);
+                break;
+
+            case 13:
+                System.out.println("Enter the course code: ");
+                courseCode = input.next();
+                courseService.deleteCourse(courseCode);
+                break;
+
+            case 14:
+                System.out.println("Enter the user's id: ");
+                userId = input.nextInt();
+                userService.deleteUser(userId);
+                break;
+
+            case 15:
+                System.out.println("Enter the enrollment id: ");
+                enrollmentId = input.nextInt();
+                enrollmentService.deleteEnrollment(enrollmentId);
+                break;
 
             default:
                 System.out.println("Wrong input! Please enter a valid input");

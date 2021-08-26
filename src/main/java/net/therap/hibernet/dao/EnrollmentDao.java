@@ -4,11 +4,10 @@ import net.therap.hibernet.domain.Course;
 import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.domain.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
+
+import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
@@ -16,25 +15,11 @@ import java.util.List;
  */
 public class EnrollmentDao {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
-
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-    public List<Enrollment> getAll() {
-        Query query = entityManager.createQuery("from Enrollment");
-
+    public List<Enrollment> getAll(Query query) {
         return query.getResultList();
     }
 
-    public void add(int userId, String courseCode) {
-        User user = new UserDao().get(userId);
-
-        Course course = new CourseDao().get(courseCode);
-
-        Enrollment enrollment = new Enrollment();
-        enrollment.setUser(user);
-        enrollment.setCourse(course);
-
+    public void add(Enrollment enrollment) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(enrollment);
@@ -42,13 +27,7 @@ public class EnrollmentDao {
         entityManager.getTransaction().commit();
     }
 
-    public void update(int id, int userId, String courseCode) {
-        User user = new UserDao().get(userId);
-
-        Course course = new CourseDao().get(courseCode);
-
-        Enrollment enrollment = entityManager.find(Enrollment.class, id);
-
+    public void update(Enrollment enrollment, User user, Course course) {
         entityManager.getTransaction().begin();
 
         enrollment.setUser(user);
@@ -57,9 +36,7 @@ public class EnrollmentDao {
         entityManager.getTransaction().commit();
     }
 
-    public void delete(int id) {
-        Enrollment enrollment = entityManager.find(Enrollment.class, id);
-
+    public void delete(Enrollment enrollment) {
         entityManager.getTransaction().begin();
 
         entityManager.remove(enrollment);

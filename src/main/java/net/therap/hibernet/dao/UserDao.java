@@ -2,11 +2,10 @@ package net.therap.hibernet.dao;
 
 import net.therap.hibernet.domain.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
+
+import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
@@ -14,23 +13,11 @@ import java.util.List;
  */
 public class UserDao {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
-
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-    public List<User> getAll() {
-        Query query = entityManager.createQuery("from User");
-
+    public List<User> getAll(Query query) {
         return query.getResultList();
     }
 
-    public User get(int id) {
-        return entityManager.find(User.class, id);
-    }
-
-    public void update(int id, String newName) {
-        User user = entityManager.find(User.class, id);
-
+    public void update(User user, String newName) {
         entityManager.getTransaction().begin();
 
         user.setName(newName);
@@ -38,11 +25,7 @@ public class UserDao {
         entityManager.getTransaction().commit();
     }
 
-    public void add(int id, String name) {
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-
+    public void add(User user) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(user);
@@ -50,9 +33,7 @@ public class UserDao {
         entityManager.getTransaction().commit();
     }
 
-    public void delete(int id) {
-        User user = entityManager.find(User.class, id);
-
+    public void delete(User user) {
         entityManager.getTransaction().begin();
 
         entityManager.remove(user);

@@ -14,21 +14,37 @@ import java.util.Objects;
  */
 public class EnrollmentView {
 
-    public static void printCourseInformation(List<Course> courseList) {
+    public static void printCourse(Course course) {
+        System.out.println("Course Code: " + course.getCourseCode());
+        System.out.println("Course Title: " + course.getCourseTitle());
+    }
+
+    public static void printUser(User user) {
+        System.out.println("User's id: " + user.getId());
+        System.out.println("User's name: " + user.getName());
+    }
+
+    public static void printEnrollment(Enrollment enrollment) {
+        System.out.println("Enrollment id: " + enrollment.getId());
+        printUser(enrollment.getUser());
+        printCourse(enrollment.getCourse());
+    }
+
+    public static void printCourseList(List<Course> courseList) {
         System.out.println("Courses: ");
         for (Course course : courseList) {
             System.out.println(course.getCourseCode() + " - " + course.getCourseTitle());
         }
     }
 
-    public static void printUserInformation(List<User> userList) {
+    public static void printUserList(List<User> userList) {
         System.out.println("Users: ");
         for (User trainee : userList) {
             System.out.println(trainee.getId() + " - " + trainee.getName());
         }
     }
 
-    public static void printEnrollmentInformation(List<Enrollment> enrollmentList) {
+    public static void printEnrollmentList(List<Enrollment> enrollmentList) {
         Collections.sort(enrollmentList);
         User userBuffer = null;
 

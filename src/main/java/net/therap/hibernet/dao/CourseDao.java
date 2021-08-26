@@ -2,11 +2,10 @@ package net.therap.hibernet.dao;
 
 import net.therap.hibernet.domain.Course;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
+
+import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
@@ -14,23 +13,11 @@ import java.util.List;
  */
 public class CourseDao {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
-
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-    public List<Course> getAll() {
-        Query query = entityManager.createQuery("from Course");
-
+    public List<Course> getAll(Query query) {
         return query.getResultList();
     }
 
-    public Course get(String courseCode) {
-        return entityManager.find(Course.class, courseCode);
-    }
-
-    public void update(String courseCode, String newCourseTitle) {
-        Course course = entityManager.find(Course.class, courseCode);
-
+    public void update(Course course, String newCourseTitle) {
         entityManager.getTransaction().begin();
 
         course.setCourseTitle(newCourseTitle);
@@ -38,11 +25,7 @@ public class CourseDao {
         entityManager.getTransaction().commit();
     }
 
-    public void add(String courseCode, String courseTitle) {
-        Course course = new Course();
-        course.setCourseCode(courseCode);
-        course.setCourseTitle(courseTitle);
-
+    public void add(Course course) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(course);
@@ -50,9 +33,7 @@ public class CourseDao {
         entityManager.getTransaction().commit();
     }
 
-    public void delete(String courseCode) {
-        Course course = entityManager.find(Course.class, courseCode);
-
+    public void delete(Course course) {
         entityManager.getTransaction().begin();
 
         entityManager.remove(course);

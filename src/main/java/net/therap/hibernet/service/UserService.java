@@ -3,7 +3,10 @@ package net.therap.hibernet.service;
 import net.therap.hibernet.dao.UserDao;
 import net.therap.hibernet.domain.User;
 
+import javax.persistence.Query;
 import java.util.List;
+
+import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
@@ -17,20 +20,33 @@ public class UserService {
         userDao = new UserDao();
     }
 
-    public List<User> getUsers() {
-        return userDao.getAll();
+    public List<User> getUserList() {
+        Query query = entityManager.createQuery("from User");
+
+        return userDao.getAll(query);
+    }
+
+    public User getUser(int id) {
+        return entityManager.find(User.class, id);
     }
 
     public void addUser(int id, String name) {
-        userDao.add(id, name);
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+
+        userDao.add(user);
     }
 
     public void updateUser(int id, String newName) {
-        userDao.update(id, newName);
+        User user = entityManager.find(User.class, id);
+
+        userDao.update(user, newName);
     }
 
     public void deleteUser(int id) {
-        userDao.delete(id);
-    }
+        User user = entityManager.find(User.class, id);
 
+        userDao.delete(user);
+    }
 }
