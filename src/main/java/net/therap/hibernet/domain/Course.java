@@ -1,10 +1,8 @@
 package net.therap.hibernet.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author rumi.dipto
@@ -23,6 +21,9 @@ public class Course implements Serializable {
     @Column(name = "courseTitle")
     private String courseTitle;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
+    private List<Enrollment> enrollmentList;
+
     public String getCourseCode() {
         return courseCode;
     }
@@ -37,6 +38,14 @@ public class Course implements Serializable {
 
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
+    }
+
+    public List<Enrollment> getEnrollmentList() {
+        return enrollmentList;
+    }
+
+    public void setEnrollmentList(List<Enrollment> enrollmentList) {
+        this.enrollmentList = enrollmentList;
     }
 
     @Override
