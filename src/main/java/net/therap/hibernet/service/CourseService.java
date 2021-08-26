@@ -13,23 +13,23 @@ public class CourseService {
 
     private CourseDao courseDao;
 
-    public CourseService(){
+    public CourseService() {
         courseDao = new CourseDao();
     }
 
-    public List<Course> getCourses(){
+    public List<Course> getCourses() {
         return courseDao.getAll();
     }
 
-    public void addCourse(String courseCode, String courseTitle){
+    public void addCourse(String courseCode, String courseTitle) {
         courseDao.add(courseCode, courseTitle);
     }
 
-    public void updateCourse(String courseCode, String newCourseTitle){
+    public void updateCourse(String courseCode, String newCourseTitle) {
         courseDao.update(courseCode, newCourseTitle);
     }
 
-    public void deleteCourse(String courseCode){
+    public void deleteCourse(String courseCode) {
         courseDao.delete(courseCode);
     }
 }

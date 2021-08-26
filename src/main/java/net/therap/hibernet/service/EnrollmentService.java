@@ -13,23 +13,23 @@ public class EnrollmentService {
 
     private EnrollmentDao enrollmentDao;
 
-    public EnrollmentService(){
+    public EnrollmentService() {
         enrollmentDao = new EnrollmentDao();
     }
 
-    public List<Enrollment> getEnrollments(){
+    public List<Enrollment> getEnrollments() {
         return enrollmentDao.getAll();
     }
 
-    public void addEnrollment(int userId, String courseCode){
+    public void addEnrollment(int userId, String courseCode) {
         enrollmentDao.add(userId, courseCode);
     }
 
-    public void updateEnrollment(int id, int userId, String courseCode){
+    public void updateEnrollment(int id, int userId, String courseCode) {
         enrollmentDao.update(id, userId, courseCode);
     }
 
-    public void deleteEnrollment(int id){
+    public void deleteEnrollment(int id) {
         enrollmentDao.delete(id);
     }
 

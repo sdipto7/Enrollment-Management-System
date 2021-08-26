@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class EnrollmentView {
 
-    public static void printCourseInformation(List<Course> courseList){
+    public static void printCourseInformation(List<Course> courseList) {
         System.out.println("Courses: ");
         for (Course course : courseList) {
             System.out.println(course.getCourseCode() + " - " + course.getCourseTitle());
@@ -36,7 +36,7 @@ public class EnrollmentView {
             Course course = enrollment.getCourse();
             if (Objects.isNull(userBuffer) || !(enrollment.getUser().equals(userBuffer))) {
                 userBuffer = enrollment.getUser();
-                System.out.println("Trainee:\n" + userBuffer.getId() + " - " + userBuffer.getName());
+                System.out.println("User:\n" + userBuffer.getId() + " - " + userBuffer.getName());
                 System.out.println("Courses:\n" + course.getCourseCode() + " - " + course.getCourseTitle() +
                         " (Enrollment ID: " + enrollment.getId() + ")");
             } else if (enrollment.getUser().equals(userBuffer)) {

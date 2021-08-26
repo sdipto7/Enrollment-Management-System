@@ -16,32 +16,29 @@ public class UserDao {
 
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-unit-1");
 
-    public List<User> getAll() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+    public List<User> getAll() {
         Query query = entityManager.createQuery("from User");
 
         return query.getResultList();
     }
 
     public User get(int id) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         return entityManager.find(User.class, id);
     }
 
     public void update(int id, String newName) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         User user = entityManager.find(User.class, id);
+
         entityManager.getTransaction().begin();
+
         user.setName(newName);
+
         entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     public void add(int id, String name) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         User user = new User();
         user.setId(id);
         user.setName(name);
@@ -51,15 +48,15 @@ public class UserDao {
         entityManager.persist(user);
 
         entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     public void delete(int id) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         User user = entityManager.find(User.class, id);
+
         entityManager.getTransaction().begin();
+
         entityManager.remove(user);
+
         entityManager.getTransaction().commit();
-        entityManager.close();
     }
 }

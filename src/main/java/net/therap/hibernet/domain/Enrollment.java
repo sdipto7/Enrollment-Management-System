@@ -26,14 +26,6 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
     @JoinColumn(name = "courseCode")
     private Course course;
 
-    public Enrollment() {
-    }
-
-    public Enrollment(User user, Course course) {
-        this.user = user;
-        this.course = course;
-    }
-
     public User getUser() {
         return user;
     }

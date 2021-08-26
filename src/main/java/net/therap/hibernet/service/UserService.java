@@ -25,11 +25,11 @@ public class UserService {
         userDao.add(id, name);
     }
 
-    public void updateUser(int id, String newName){
-        userDao.update(id,newName);
+    public void updateUser(int id, String newName) {
+        userDao.update(id, newName);
     }
 
-    public void deleteUser(int id){
+    public void deleteUser(int id) {
         userDao.delete(id);
     }
 
