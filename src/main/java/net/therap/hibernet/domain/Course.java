@@ -60,4 +60,8 @@ public class Course implements Serializable {
     public void setEnrollmentList(List<Enrollment> enrollmentList) {
         this.enrollmentList = enrollmentList;
     }
+
+    public boolean isNew() {
+        return this.getId() == 0;
+    }
 }
