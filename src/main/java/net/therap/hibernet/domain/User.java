@@ -1,5 +1,7 @@
 package net.therap.hibernet.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -16,9 +18,11 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @NotNull
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 100)
+    @NotNull
     private String name;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)

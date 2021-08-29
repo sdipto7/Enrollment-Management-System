@@ -1,5 +1,7 @@
 package net.therap.hibernet.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -16,12 +18,15 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private long id;
 
-    @Column(name = "course_code")
+    @Column(name = "course_code", length = 7)
+    @NotNull
     private String courseCode;
 
-    @Column(name = "course_title")
+    @Column(name = "course_title", length = 100)
+    @NotNull
     private String courseTitle;
 
     @OneToMany(mappedBy = "course",

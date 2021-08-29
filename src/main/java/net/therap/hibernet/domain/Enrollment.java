@@ -17,6 +17,7 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private long id;
 
     @ManyToOne
