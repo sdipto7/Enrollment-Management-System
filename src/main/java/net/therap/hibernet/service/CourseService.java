@@ -21,13 +21,11 @@ public class CourseService {
     }
 
     public List<Course> getCourseList() {
-        Query query = entityManager.createQuery("from Course");
-
-        return courseDao.getAll(query);
+        return courseDao.findAll();
     }
 
-    public Course getCourse(String courseCode) {
-        return entityManager.find(Course.class, courseCode);
+    public Course getCourse(long id) {
+        return entityManager.find(Course.class, id);
     }
 
     public void addCourse(String courseCode, String courseTitle) {
@@ -38,14 +36,14 @@ public class CourseService {
         courseDao.add(course);
     }
 
-    public void updateCourse(String courseCode, String newCourseTitle) {
-        Course course = entityManager.find(Course.class, courseCode);
+    public void updateCourse(long id, String newCourseCode, String newCourseTitle) {
+        Course course = entityManager.find(Course.class, id);
 
-        courseDao.update(course, newCourseTitle);
+        courseDao.update(course, newCourseCode,newCourseTitle);
     }
 
-    public void deleteCourse(String courseCode) {
-        Course course = entityManager.find(Course.class, courseCode);
+    public void deleteCourse(long id) {
+        Course course = entityManager.find(Course.class, id);
 
         courseDao.delete(course);
     }

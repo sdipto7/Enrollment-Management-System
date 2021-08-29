@@ -13,13 +13,16 @@ import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
  */
 public class CourseDao {
 
-    public List<Course> getAll(Query query) {
+    public List<Course> findAll() {
+        Query query = entityManager.createQuery("from Course");
+
         return query.getResultList();
     }
 
-    public void update(Course course, String newCourseTitle) {
+    public void update(Course course, String newCourseCode, String newCourseTitle) {
         entityManager.getTransaction().begin();
 
+        course.setCourseCode(newCourseCode);
         course.setCourseTitle(newCourseTitle);
 
         entityManager.getTransaction().commit();

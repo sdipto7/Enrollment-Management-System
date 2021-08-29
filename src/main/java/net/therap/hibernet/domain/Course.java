@@ -15,13 +15,18 @@ public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "courseCode")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(name = "course_code")
     private String courseCode;
 
-    @Column(name = "courseTitle")
+    @Column(name = "course_title")
     private String courseTitle;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "course",
+            cascade = CascadeType.REMOVE,
+            orphanRemoval = true)
     private List<Enrollment> enrollmentList;
 
     public String getCourseCode() {
@@ -40,19 +45,19 @@ public class Course implements Serializable {
         this.courseTitle = courseTitle;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public List<Enrollment> getEnrollmentList() {
         return enrollmentList;
     }
 
     public void setEnrollmentList(List<Enrollment> enrollmentList) {
         this.enrollmentList = enrollmentList;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseCode='" + courseCode + '\'' +
-                ", courseTitle='" + courseTitle + '\'' +
-                '}';
     }
 }

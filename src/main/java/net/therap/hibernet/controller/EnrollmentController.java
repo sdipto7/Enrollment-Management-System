@@ -56,11 +56,11 @@ public class EnrollmentController {
 
         UserService userService = new UserService();
 
-        String courseCode;
+        long courseId;
 
-        int userId;
+        long userId;
 
-        int enrollmentId;
+        long enrollmentId;
 
         Scanner input = new Scanner(System.in);
 
@@ -82,8 +82,7 @@ public class EnrollmentController {
 
             case 4:
                 System.out.println("Enter new course code: ");
-                courseCode = input.next();
-                input.nextLine();
+                String courseCode = input.nextLine();
 
                 System.out.println("Enter new course title: ");
                 String courseTitle = input.nextLine();
@@ -93,7 +92,7 @@ public class EnrollmentController {
 
             case 5:
                 System.out.println("Enter new user's id: ");
-                userId = input.nextInt();
+                userId = input.nextLong();
                 input.nextLine();
 
                 System.out.println("Enter new user's name: ");
@@ -104,25 +103,27 @@ public class EnrollmentController {
 
             case 6:
                 System.out.println("Enter user id");
-                userId = input.nextInt();
+                userId = input.nextLong();
                 input.nextLine();
 
                 System.out.println("Enter course code");
-                courseCode = input.next();
+                courseId = input.nextLong();
                 input.nextLine();
 
-                enrollmentService.addEnrollment(userId, courseCode);
+                enrollmentService.addEnrollment(userId, courseId);
                 break;
 
             case 7:
+                System.out.println("Enter the id of the course: ");
+                courseId = input.nextLong();
                 System.out.println("Enter the course code: ");
-                courseCode = input.next();
+                String newCourseCode = input.nextLine();
                 input.nextLine();
 
                 System.out.println("Enter the new title: ");
                 String newCourseTitle = input.nextLine();
 
-                courseService.updateCourse(courseCode, newCourseTitle);
+                courseService.updateCourse(courseId, newCourseCode, newCourseTitle);
                 break;
 
             case 8:
@@ -138,29 +139,29 @@ public class EnrollmentController {
 
             case 9:
                 System.out.println("Enter the id of enrollment: ");
-                enrollmentId = input.nextInt();
+                enrollmentId = input.nextLong();
 
                 System.out.println("Enter the new user id: ");
-                int newUserId = input.nextInt();
+                long newUserId = input.nextLong();
 
-                System.out.println("Enter the new course code: ");
-                String newCourseCode = input.next();
+                System.out.println("Enter the new course id: ");
+                long newCourseId = input.nextLong();
 
-                enrollmentService.updateEnrollment(enrollmentId, newUserId, newCourseCode);
+                enrollmentService.updateEnrollment(enrollmentId, newUserId, newUserId);
                 break;
 
             case 10:
                 System.out.println("Enter the course code: ");
-                courseCode = input.next();
+                courseId = input.nextLong();
 
-                Course course = courseService.getCourse(courseCode);
+                Course course = courseService.getCourse(courseId);
 
                 EnrollmentView.printCourse(course);
                 break;
 
             case 11:
                 System.out.println("Enter the user's id: ");
-                userId = input.nextInt();
+                userId = input.nextLong();
 
                 User user = userService.getUser(userId);
 
@@ -169,7 +170,7 @@ public class EnrollmentController {
 
             case 12:
                 System.out.println("Enter the enrollment id: ");
-                enrollmentId = input.nextInt();
+                enrollmentId = input.nextLong();
 
                 Enrollment enrollment = enrollmentService.getEnrollment(enrollmentId);
 
@@ -178,21 +179,21 @@ public class EnrollmentController {
 
             case 13:
                 System.out.println("Enter the course code: ");
-                courseCode = input.next();
+                courseId = input.nextLong();
 
-                courseService.deleteCourse(courseCode);
+                courseService.deleteCourse(courseId);
                 break;
 
             case 14:
                 System.out.println("Enter the user's id: ");
-                userId = input.nextInt();
+                userId = input.nextLong();
 
                 userService.deleteUser(userId);
                 break;
 
             case 15:
                 System.out.println("Enter the enrollment id: ");
-                enrollmentId = input.nextInt();
+                enrollmentId = input.nextLong();
 
                 enrollmentService.deleteEnrollment(enrollmentId);
                 break;

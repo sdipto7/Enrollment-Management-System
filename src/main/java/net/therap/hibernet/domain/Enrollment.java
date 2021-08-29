@@ -14,16 +14,15 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "courseCode")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     public User getUser() {
@@ -42,25 +41,16 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
         this.course = course;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     @Override
-    public String toString() {
-        return "Enrollment{" +
-                "id=" + id +
-                ", user=" + user +
-                ", course=" + course +
-                '}';
-    }
-
-    @Override
     public int compareTo(Enrollment enrollment) {
-        return this.getUser().getId() - enrollment.getUser().getId();
+        return (int)this.getUser().getId() - (int)enrollment.getUser().getId();
     }
 }
