@@ -1,18 +1,21 @@
 package net.therap.hibernet.dao;
 
 import net.therap.hibernet.domain.Course;
+import net.therap.hibernet.util.EntityManagerConfiguration;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Objects;
-
-import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
  * @since 8/25/21
  */
 public class CourseDao {
+
+    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+
 
     public List<Course> findAll() {
         Query query = entityManager.createQuery("from Course");

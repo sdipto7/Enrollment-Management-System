@@ -1,18 +1,20 @@
 package net.therap.hibernet.dao;
 
 import net.therap.hibernet.domain.User;
+import net.therap.hibernet.util.EntityManagerConfiguration;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Objects;
-
-import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
  * @since 8/25/21
  */
 public class UserDao {
+
+    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
 
     public List<User> getAll(Query query) {
         return query.getResultList();

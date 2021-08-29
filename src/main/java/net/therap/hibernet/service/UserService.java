@@ -2,17 +2,19 @@ package net.therap.hibernet.service;
 
 import net.therap.hibernet.dao.UserDao;
 import net.therap.hibernet.domain.User;
+import net.therap.hibernet.util.EntityManagerConfiguration;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
-
-import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
 /**
  * @author rumi.dipto
  * @since 8/25/21
  */
 public class UserService {
+
+    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
 
     private UserDao userDao;
 
