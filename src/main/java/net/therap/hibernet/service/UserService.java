@@ -23,9 +23,7 @@ public class UserService {
     }
 
     public List<User> getUserList() {
-        Query query = entityManager.createQuery("from User");
-
-        return userDao.getAll(query);
+        return userDao.findAll();
     }
 
     public User getUser(long id) {

@@ -16,7 +16,9 @@ public class UserDao {
 
     EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
 
-    public List<User> getAll(Query query) {
+    public List<User> findAll() {
+        Query query = entityManager.createQuery("from User");
+
         return query.getResultList();
     }
 
