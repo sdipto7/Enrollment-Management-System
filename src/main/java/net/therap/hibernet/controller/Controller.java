@@ -23,19 +23,19 @@ public class EnrollmentController {
 
         while (true) {
             System.out.println("Press 0 to exit");
-            System.out.println("Press 1 to view courses");
+            System.out.println("Press 1 to view courses"); //c
             System.out.println("Press 2 to view users");
             System.out.println("Press 3 to view course enrollment details");
-            System.out.println("Press 4 to add a new course");
+            System.out.println("Press 4 to add a new course"); //c
             System.out.println("Press 5 to add a new user");
             System.out.println("Press 6 to add a new enrollment");
-            System.out.println("Press 7 to update a course information");
+            System.out.println("Press 7 to update a course information");//c
             System.out.println("Press 8 to update an user information");
             System.out.println("Press 9 to update an enrollment information");
-            System.out.println("Press 10 to view a specific course information");
+            System.out.println("Press 10 to view a specific course information");//c
             System.out.println("Press 11 to view a specific user information");
             System.out.println("Press 12 to view a specific enrollment information");
-            System.out.println("Press 13 to delete a course information");
+            System.out.println("Press 13 to delete a course information"); //c
             System.out.println("Press 14 to delete an user information");
             System.out.println("Press 15 to delete an enrollment information");
 
