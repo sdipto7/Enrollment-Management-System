@@ -4,7 +4,6 @@ import net.therap.hibernet.View.EnrollmentView;
 import net.therap.hibernet.domain.Course;
 import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.domain.User;
-import net.therap.hibernet.service.CourseService;
 import net.therap.hibernet.service.EnrollmentService;
 import net.therap.hibernet.service.UserService;
 
@@ -15,7 +14,7 @@ import java.util.Scanner;
  * @author rumi.dipto
  * @since 8/24/21
  */
-public class EnrollmentController {
+public class Controller {
 
     public static void main(String[] args) {
 
@@ -52,7 +51,7 @@ public class EnrollmentController {
     public static void executeOperation(int operation) {
         EnrollmentService enrollmentService = new EnrollmentService();
 
-        CourseService courseService = new CourseService();
+        CourseController courseController = new CourseController();
 
         UserService userService = new UserService();
 
@@ -66,8 +65,7 @@ public class EnrollmentController {
 
         switch (operation) {
             case 1:
-                List<Course> courseList = courseService.getCourseList();
-                EnrollmentView.printCourseList(courseList);
+                courseController.viewAllCourses();
                 break;
 
             case 2:
@@ -81,13 +79,7 @@ public class EnrollmentController {
                 break;
 
             case 4:
-                System.out.println("Enter new course code: ");
-                String courseCode = input.nextLine();
-
-                System.out.println("Enter new course title: ");
-                String courseTitle = input.nextLine();
-
-                courseService.addCourse(courseCode, courseTitle);
+                courseController.addCourse();
                 break;
 
             case 5:
@@ -114,16 +106,7 @@ public class EnrollmentController {
                 break;
 
             case 7:
-                System.out.println("Enter the id of the course: ");
-                courseId = input.nextLong();
-                System.out.println("Enter the course code: ");
-                String newCourseCode = input.nextLine();
-                input.nextLine();
-
-                System.out.println("Enter the new title: ");
-                String newCourseTitle = input.nextLine();
-
-                courseService.updateCourse(courseId, newCourseCode, newCourseTitle);
+                courseController.updateCourse();
                 break;
 
             case 8:
@@ -151,12 +134,7 @@ public class EnrollmentController {
                 break;
 
             case 10:
-                System.out.println("Enter the course code: ");
-                courseId = input.nextLong();
-
-                Course course = courseService.getCourse(courseId);
-
-                EnrollmentView.printCourse(course);
+                courseController.viewCourse();
                 break;
 
             case 11:
@@ -178,10 +156,7 @@ public class EnrollmentController {
                 break;
 
             case 13:
-                System.out.println("Enter the course code: ");
-                courseId = input.nextLong();
-
-                courseService.deleteCourse(courseId);
+                courseController.deleteCourse();
                 break;
 
             case 14:
