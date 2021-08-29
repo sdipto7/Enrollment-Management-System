@@ -1,8 +1,8 @@
 package net.therap.hibernet.domain;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -21,8 +21,9 @@ public class User implements Serializable {
     @NotNull
     private long id;
 
-    @Column(name = "name", length = 100)
+    @Column(name = "name")
     @NotNull
+    @Size(min = 2, max = 100)
     private String name;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
