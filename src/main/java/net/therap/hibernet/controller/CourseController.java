@@ -43,6 +43,7 @@ public class CourseController {
 
         System.out.println("Enter the id of the course: ");
         long courseId = input.nextLong();
+        input.nextLine();
 
         System.out.println("Enter the new course code: ");
         String newCourseCode = input.nextLine();
