@@ -5,7 +5,6 @@ import net.therap.hibernet.domain.User;
 import net.therap.hibernet.util.EntityManagerConfiguration;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ public class UserService {
     }
 
     public void updateUser(long id, String newName) {
-        User user = entityManager.find(User.class, id);
+        User user = entityManager.getReference(User.class, id);
 
         userDao.update(user, newName);
     }
