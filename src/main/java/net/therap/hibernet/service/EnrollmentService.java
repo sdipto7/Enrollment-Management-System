@@ -55,8 +55,6 @@ public class EnrollmentService {
     }
 
     public void deleteEnrollment(long id) {
-        Enrollment enrollment = entityManager.find(Enrollment.class, id);
-
-        enrollmentDao.delete(enrollment);
+        enrollmentDao.delete(id);
     }
 }

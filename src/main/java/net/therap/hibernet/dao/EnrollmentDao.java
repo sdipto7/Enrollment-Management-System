@@ -6,6 +6,7 @@ import net.therap.hibernet.domain.User;
 
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Objects;
 
 import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
 
@@ -36,11 +37,14 @@ public class EnrollmentDao {
         entityManager.getTransaction().commit();
     }
 
-    public void delete(Enrollment enrollment) {
+    public void delete(long id) {
+        Enrollment enrollment = entityManager.find(Enrollment.class, id);
+
         entityManager.getTransaction().begin();
-
-        entityManager.remove(enrollment);
-
+        if (Objects.nonNull(enrollment)) {
+            entityManager.remove(enrollment);
+        }
         entityManager.getTransaction().commit();
+        entityManager.flush();
     }
 }
