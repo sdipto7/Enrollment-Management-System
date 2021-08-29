@@ -18,7 +18,9 @@ public class EnrollmentDao {
 
     EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
 
-    public List<Enrollment> getAll(Query query) {
+    public List<Enrollment> findAll() {
+        Query query = entityManager.createQuery("from Enrollment");
+
         return query.getResultList();
     }
 

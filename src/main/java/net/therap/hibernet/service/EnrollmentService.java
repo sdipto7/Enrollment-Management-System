@@ -7,7 +7,6 @@ import net.therap.hibernet.domain.User;
 import net.therap.hibernet.util.EntityManagerConfiguration;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -25,9 +24,7 @@ public class EnrollmentService {
     }
 
     public List<Enrollment> getEnrollmentList() {
-        Query query = entityManager.createQuery("from Enrollment");
-
-        return enrollmentDao.getAll(query);
+        return enrollmentDao.findAll();
     }
 
     public Enrollment getEnrollment(long id) {
