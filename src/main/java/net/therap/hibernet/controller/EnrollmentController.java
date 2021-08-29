@@ -13,14 +13,18 @@ import java.util.Scanner;
  */
 public class EnrollmentController {
 
-    EnrollmentService enrollmentService = new EnrollmentService();
+    EnrollmentService enrollmentService;
 
-    public void viewAllEnrollments(){
+    public EnrollmentController() {
+        enrollmentService = new EnrollmentService();
+    }
+
+    public void viewAllEnrollments() {
         List<Enrollment> enrollmentList = enrollmentService.getEnrollmentList();
         EnrollmentView.printEnrollmentList(enrollmentList);
     }
 
-    public void addEnrollment(){
+    public void addEnrollment() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter user id");
         long userId = input.nextLong();
@@ -34,7 +38,7 @@ public class EnrollmentController {
         input.close();
     }
 
-    public void updateEnrollment(){
+    public void updateEnrollment() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the id of enrollment: ");
         long enrollmentId = input.nextLong();
@@ -49,7 +53,7 @@ public class EnrollmentController {
         input.close();
     }
 
-    public void viewEnrollment(){
+    public void viewEnrollment() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the enrollment id: ");
         long enrollmentId = input.nextLong();
@@ -60,7 +64,7 @@ public class EnrollmentController {
         input.close();
     }
 
-    public void deleteEnrollment(){
+    public void deleteEnrollment() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the enrollment id: ");
         long enrollmentId = input.nextLong();

@@ -19,12 +19,12 @@ public class UserController {
         userService = new UserService();
     }
 
-    public void viewAllUsers(){
+    public void viewAllUsers() {
         List<User> userList = userService.getUserList();
         EnrollmentView.printUserList(userList);
     }
 
-    public void addUser(){
+    public void addUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter new user's id: ");
         long userId = input.nextLong();
@@ -37,7 +37,7 @@ public class UserController {
         input.close();
     }
 
-    public void updateUser(){
+    public void updateUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the user id: ");
         long userId = input.nextLong();
@@ -50,7 +50,7 @@ public class UserController {
         input.close();
     }
 
-    public void viewUser(){
+    public void viewUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the user's id: ");
         long userId = input.nextLong();
@@ -61,7 +61,7 @@ public class UserController {
         input.close();
     }
 
-    public void deleteUser(){
+    public void deleteUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the user's id: ");
         long userId = input.nextLong();

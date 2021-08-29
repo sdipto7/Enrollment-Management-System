@@ -26,7 +26,6 @@ public class CourseController {
 
     public void addCourse() {
         Scanner input = new Scanner(System.in);
-
         System.out.println("Enter new course code: ");
         String courseCode = input.nextLine();
 
@@ -34,13 +33,11 @@ public class CourseController {
         String courseTitle = input.nextLine();
 
         courseService.addCourse(courseCode, courseTitle);
-
         input.close();
     }
 
     public void updateCourse() {
         Scanner input = new Scanner(System.in);
-
         System.out.println("Enter the id of the course: ");
         long courseId = input.nextLong();
         input.nextLine();
@@ -57,7 +54,6 @@ public class CourseController {
 
     public void viewCourse() {
         Scanner input = new Scanner(System.in);
-
         System.out.println("Enter the course code: ");
         long courseId = input.nextLong();
 
@@ -69,7 +65,6 @@ public class CourseController {
 
     public void deleteCourse() {
         Scanner input = new Scanner(System.in);
-
         System.out.println("Enter the course code: ");
         long courseId = input.nextLong();
 
