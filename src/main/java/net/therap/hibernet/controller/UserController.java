@@ -20,7 +20,7 @@ public class UserController {
     }
 
     public void viewAllUsers() {
-        List<User> userList = userService.getUserList();
+        List<User> userList = userService.findAll();
         EnrollmentView.printUserList(userList);
     }
 
@@ -33,7 +33,7 @@ public class UserController {
         System.out.println("Enter new user's name: ");
         String name = input.nextLine();
 
-        userService.addUser(userId, name);
+        userService.save(userId, name);
         input.close();
     }
 
@@ -46,7 +46,7 @@ public class UserController {
         System.out.println("Enter new name: ");
         String newName = input.nextLine();
 
-        userService.updateUser(userId, newName);
+        userService.update(userId, newName);
         input.close();
     }
 
@@ -55,7 +55,7 @@ public class UserController {
         System.out.println("Enter the user's id: ");
         long userId = input.nextLong();
 
-        User user = userService.getUser(userId);
+        User user = userService.findUserById(userId);
 
         EnrollmentView.printUser(user);
         input.close();
@@ -66,7 +66,7 @@ public class UserController {
         System.out.println("Enter the user's id: ");
         long userId = input.nextLong();
 
-        userService.deleteUser(userId);
+        userService.delete(userId);
         input.close();
     }
 }

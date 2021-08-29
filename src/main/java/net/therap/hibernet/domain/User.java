@@ -51,15 +51,13 @@ public class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || this.getClass() != object.getClass()) {
+        if (Objects.isNull(object) || !(object instanceof User)) {
             return false;
         }
-        User trainee = (User) object;
 
-        return this.getId() == trainee.getId();
+        User that = (User) object;
+
+        return this.getId() == that.getId();
     }
 
     @Override

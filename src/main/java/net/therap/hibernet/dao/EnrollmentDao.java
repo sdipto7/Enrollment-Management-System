@@ -24,6 +24,10 @@ public class EnrollmentDao {
         return query.getResultList();
     }
 
+    public Enrollment findById(long id) {
+        return entityManager.find(Enrollment.class, id);
+    }
+
     public void add(Enrollment enrollment) {
         entityManager.getTransaction().begin();
 
@@ -49,6 +53,5 @@ public class EnrollmentDao {
             entityManager.remove(enrollment);
         }
         entityManager.getTransaction().commit();
-        entityManager.flush();
     }
 }

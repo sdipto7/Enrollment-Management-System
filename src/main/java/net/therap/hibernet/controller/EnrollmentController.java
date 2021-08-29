@@ -20,7 +20,7 @@ public class EnrollmentController {
     }
 
     public void viewAllEnrollments() {
-        List<Enrollment> enrollmentList = enrollmentService.getEnrollmentList();
+        List<Enrollment> enrollmentList = enrollmentService.findAll();
         EnrollmentView.printEnrollmentList(enrollmentList);
     }
 
@@ -34,7 +34,7 @@ public class EnrollmentController {
         long courseId = input.nextLong();
         input.nextLine();
 
-        enrollmentService.addEnrollment(userId, courseId);
+        enrollmentService.save(userId, courseId);
         input.close();
     }
 
@@ -49,7 +49,7 @@ public class EnrollmentController {
         System.out.println("Enter the new course id: ");
         long newCourseId = input.nextLong();
 
-        enrollmentService.updateEnrollment(enrollmentId, newUserId, newCourseId);
+        enrollmentService.update(enrollmentId, newUserId, newCourseId);
         input.close();
     }
 
@@ -58,7 +58,7 @@ public class EnrollmentController {
         System.out.println("Enter the enrollment id: ");
         long enrollmentId = input.nextLong();
 
-        Enrollment enrollment = enrollmentService.getEnrollment(enrollmentId);
+        Enrollment enrollment = enrollmentService.findById(enrollmentId);
 
         EnrollmentView.printEnrollment(enrollment);
         input.close();
@@ -69,7 +69,7 @@ public class EnrollmentController {
         System.out.println("Enter the enrollment id: ");
         long enrollmentId = input.nextLong();
 
-        enrollmentService.deleteEnrollment(enrollmentId);
+        enrollmentService.delete(enrollmentId);
         input.close();
     }
 }

@@ -21,29 +21,29 @@ public class CourseService {
         courseDao = new CourseDao();
     }
 
-    public List<Course> getCourseList() {
+    public List<Course> findAll() {
         return courseDao.findAll();
     }
 
-    public Course getCourse(long id) {
-        return entityManager.find(Course.class, id);
+    public Course findCourseById(long id) {
+        return courseDao.findCourseById(id);
     }
 
-    public void addCourse(String courseCode, String courseTitle) {
+    public void save(String courseCode, String courseTitle) {
         Course course = new Course();
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
 
-        courseDao.add(course);
+        courseDao.save(course);
     }
 
-    public void updateCourse(long id, String newCourseCode, String newCourseTitle) {
+    public void update(long id, String newCourseCode, String newCourseTitle) {
         Course course = entityManager.find(Course.class, id);
 
         courseDao.update(course, newCourseCode, newCourseTitle);
     }
 
-    public void deleteCourse(long id) {
+    public void delete(long id) {
         courseDao.delete(id);
     }
 }

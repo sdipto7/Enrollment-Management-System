@@ -23,15 +23,15 @@ public class EnrollmentService {
         enrollmentDao = new EnrollmentDao();
     }
 
-    public List<Enrollment> getEnrollmentList() {
+    public List<Enrollment> findAll() {
         return enrollmentDao.findAll();
     }
 
-    public Enrollment getEnrollment(long id) {
-        return entityManager.find(Enrollment.class, id);
+    public Enrollment findById(long id) {
+        return enrollmentDao.findById(id);
     }
 
-    public void addEnrollment(long userId, long course_id) {
+    public void save(long userId, long course_id) {
         User user = entityManager.find(User.class, userId);
 
         Course course = entityManager.find(Course.class, course_id);
@@ -43,7 +43,7 @@ public class EnrollmentService {
         enrollmentDao.add(enrollment);
     }
 
-    public void updateEnrollment(long id, long userId, long courseCode) {
+    public void update(long id, long userId, long courseCode) {
         Enrollment enrollment = entityManager.find(Enrollment.class, id);
 
         User user = entityManager.find(User.class, userId);
@@ -53,7 +53,7 @@ public class EnrollmentService {
         enrollmentDao.update(enrollment, user, course);
     }
 
-    public void deleteEnrollment(long id) {
+    public void delete(long id) {
         enrollmentDao.delete(id);
     }
 }

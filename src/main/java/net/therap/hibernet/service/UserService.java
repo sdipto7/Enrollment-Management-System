@@ -21,29 +21,29 @@ public class UserService {
         userDao = new UserDao();
     }
 
-    public List<User> getUserList() {
+    public List<User> findAll() {
         return userDao.findAll();
     }
 
-    public User getUser(long id) {
-        return entityManager.find(User.class, id);
+    public User findUserById(long id) {
+        return userDao.findUserById(id);
     }
 
-    public void addUser(long id, String name) {
+    public void save(long id, String name) {
         User user = new User();
         user.setId(id);
         user.setName(name);
 
-        userDao.add(user);
+        userDao.save(user);
     }
 
-    public void updateUser(long id, String newName) {
+    public void update(long id, String newName) {
         User user = entityManager.getReference(User.class, id);
 
         userDao.update(user, newName);
     }
 
-    public void deleteUser(long id) {
+    public void delete(long id) {
         userDao.delete(id);
     }
 }

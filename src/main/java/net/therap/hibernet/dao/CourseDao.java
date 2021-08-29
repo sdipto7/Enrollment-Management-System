@@ -23,6 +23,10 @@ public class CourseDao {
         return query.getResultList();
     }
 
+    public Course findCourseById(long id) {
+        return entityManager.find(Course.class, id);
+    }
+
     public void update(Course course, String newCourseCode, String newCourseTitle) {
         entityManager.getTransaction().begin();
 
@@ -32,7 +36,7 @@ public class CourseDao {
         entityManager.getTransaction().commit();
     }
 
-    public void add(Course course) {
+    public void save(Course course) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(course);
@@ -48,6 +52,5 @@ public class CourseDao {
             entityManager.remove(course);
         }
         entityManager.getTransaction().commit();
-        entityManager.flush();
     }
 }

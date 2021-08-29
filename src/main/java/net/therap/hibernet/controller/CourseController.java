@@ -20,7 +20,7 @@ public class CourseController {
     }
 
     public void viewAllCourses() {
-        List<Course> courseList = courseService.getCourseList();
+        List<Course> courseList = courseService.findAll();
         EnrollmentView.printCourseList(courseList);
     }
 
@@ -32,7 +32,7 @@ public class CourseController {
         System.out.println("Enter new course title: ");
         String courseTitle = input.nextLine();
 
-        courseService.addCourse(courseCode, courseTitle);
+        courseService.save(courseCode, courseTitle);
         input.close();
     }
 
@@ -48,7 +48,7 @@ public class CourseController {
         System.out.println("Enter the new course title: ");
         String newCourseTitle = input.nextLine();
 
-        courseService.updateCourse(courseId, newCourseCode, newCourseTitle);
+        courseService.update(courseId, newCourseCode, newCourseTitle);
         input.close();
     }
 
@@ -57,7 +57,7 @@ public class CourseController {
         System.out.println("Enter the course code: ");
         long courseId = input.nextLong();
 
-        Course course = courseService.getCourse(courseId);
+        Course course = courseService.findCourseById(courseId);
 
         EnrollmentView.printCourse(course);
         input.close();
@@ -68,7 +68,7 @@ public class CourseController {
         System.out.println("Enter the course code: ");
         long courseId = input.nextLong();
 
-        courseService.deleteCourse(courseId);
+        courseService.delete(courseId);
         input.close();
     }
 }

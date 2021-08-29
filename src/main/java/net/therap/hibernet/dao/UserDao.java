@@ -22,6 +22,10 @@ public class UserDao {
         return query.getResultList();
     }
 
+    public User findUserById(long id) {
+        return entityManager.find(User.class, id);
+    }
+
     public void update(User user, String newName) {
         entityManager.getTransaction().begin();
 
@@ -30,7 +34,7 @@ public class UserDao {
         entityManager.getTransaction().commit();
     }
 
-    public void add(User user) {
+    public void save(User user) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(user);
@@ -46,6 +50,5 @@ public class UserDao {
             entityManager.remove(user);
         }
         entityManager.getTransaction().commit();
-        entityManager.flush();
     }
 }
