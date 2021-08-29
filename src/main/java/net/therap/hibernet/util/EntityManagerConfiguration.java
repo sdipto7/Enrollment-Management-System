@@ -17,7 +17,7 @@ public class EntityManagerConfiguration {
     private static EntityManagerConfiguration entityManagerConfiguration = null;
 
     public static EntityManagerConfiguration getInstance() {
-        if (entityManagerConfiguration.equals(null)) {
+        if (entityManagerConfiguration == null) {
             entityManagerConfiguration = new EntityManagerConfiguration();
         }
         return entityManagerConfiguration;
