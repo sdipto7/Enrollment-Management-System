@@ -3,7 +3,6 @@ package net.therap.hibernet.service;
 import net.therap.hibernet.dao.CourseDao;
 import net.therap.hibernet.domain.Course;
 
-import javax.persistence.Query;
 import java.util.List;
 
 import static net.therap.hibernet.util.EntityManagerConfiguration.entityManager;
@@ -39,12 +38,10 @@ public class CourseService {
     public void updateCourse(long id, String newCourseCode, String newCourseTitle) {
         Course course = entityManager.find(Course.class, id);
 
-        courseDao.update(course, newCourseCode,newCourseTitle);
+        courseDao.update(course, newCourseCode, newCourseTitle);
     }
 
     public void deleteCourse(long id) {
-        Course course = entityManager.find(Course.class, id);
-
-        courseDao.delete(course);
+        courseDao.delete(id);
     }
 }
