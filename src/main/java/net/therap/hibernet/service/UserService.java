@@ -45,8 +45,6 @@ public class UserService {
     }
 
     public void deleteUser(long id) {
-        User user = entityManager.find(User.class, id);
-
-        userDao.delete(user);
+        userDao.delete(id);
     }
 }
