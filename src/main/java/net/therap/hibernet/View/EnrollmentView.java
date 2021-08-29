@@ -39,8 +39,8 @@ public class EnrollmentView {
 
     public static void printUserList(List<User> userList) {
         System.out.println("Users: ");
-        for (User trainee : userList) {
-            System.out.println(trainee.getId() + " - " + trainee.getName());
+        for (User user : userList) {
+            System.out.println(user.getId() + " - " + user.getName());
         }
     }
 
@@ -55,7 +55,7 @@ public class EnrollmentView {
                 System.out.println("User:\n" + userBuffer.getId() + " - " + userBuffer.getName());
                 System.out.println("Courses:\n" + course.getCourseCode() + " - " + course.getCourseTitle() +
                         " (Enrollment ID: " + enrollment.getId() + ")");
-            } else if (enrollment.getUser().equals(userBuffer)) {
+            } else {
                 System.out.println(course.getCourseCode() + " - " + course.getCourseTitle() +
                         " (Enrollment ID: " + enrollment.getId() + ")");
             }
