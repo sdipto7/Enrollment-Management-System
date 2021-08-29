@@ -31,16 +31,8 @@ public class EnrollmentService {
         return enrollmentDao.findById(id);
     }
 
-    public void save(long userId, long course_id) {
-        User user = entityManager.find(User.class, userId);
-
-        Course course = entityManager.find(Course.class, course_id);
-
-        Enrollment enrollment = new Enrollment();
-        enrollment.setUser(user);
-        enrollment.setCourse(course);
-
-        enrollmentDao.add(enrollment);
+    public void save(Enrollment enrollment, long userId, long courseId) {
+        enrollmentDao.save(enrollment, userId, courseId);
     }
 
     public void update(long id, long userId, long courseCode) {

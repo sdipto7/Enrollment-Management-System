@@ -34,7 +34,9 @@ public class EnrollmentController {
         long courseId = input.nextLong();
         input.nextLine();
 
-        enrollmentService.save(userId, courseId);
+        Enrollment enrollment = new Enrollment();
+
+        enrollmentService.save(enrollment, userId, courseId);
         input.close();
     }
 

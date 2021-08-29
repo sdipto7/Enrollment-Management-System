@@ -28,7 +28,14 @@ public class EnrollmentDao {
         return entityManager.find(Enrollment.class, id);
     }
 
-    public void add(Enrollment enrollment) {
+    public void save(Enrollment enrollment, long userId, long courseId) {
+        User user = entityManager.find(User.class, userId);
+
+        Course course = entityManager.find(Course.class, courseId);
+
+        enrollment.setUser(user);
+        enrollment.setCourse(course);
+
         entityManager.getTransaction().begin();
 
         entityManager.persist(enrollment);

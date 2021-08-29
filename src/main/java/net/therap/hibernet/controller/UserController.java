@@ -27,13 +27,17 @@ public class UserController {
     public void addUser() {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter new user's id: ");
-        long userId = input.nextLong();
+        long id = input.nextLong();
         input.nextLine();
 
         System.out.println("Enter new user's name: ");
         String name = input.nextLine();
 
-        userService.save(userId, name);
+        User user = new User();
+        user.setId(id);
+        user.setName(name);
+
+        userService.save(user);
         input.close();
     }
 

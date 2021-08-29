@@ -29,11 +29,7 @@ public class CourseService {
         return courseDao.findCourseById(id);
     }
 
-    public void save(String courseCode, String courseTitle) {
-        Course course = new Course();
-        course.setCourseCode(courseCode);
-        course.setCourseTitle(courseTitle);
-
+    public void save(Course course) {
         courseDao.save(course);
     }
 

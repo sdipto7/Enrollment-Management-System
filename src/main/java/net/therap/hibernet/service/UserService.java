@@ -29,11 +29,7 @@ public class UserService {
         return userDao.findUserById(id);
     }
 
-    public void save(long id, String name) {
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-
+    public void save(User user) {
         userDao.save(user);
     }
 

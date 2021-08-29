@@ -32,7 +32,11 @@ public class CourseController {
         System.out.println("Enter new course title: ");
         String courseTitle = input.nextLine();
 
-        courseService.save(courseCode, courseTitle);
+        Course course = new Course();
+        course.setCourseCode(courseCode);
+        course.setCourseTitle(courseTitle);
+
+        courseService.save(course);
         input.close();
     }
 
