@@ -1,5 +1,7 @@
 package net.therap.hibernet.domain;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -19,10 +21,12 @@ public class Enrollment implements Comparable<Enrollment>, Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @NotNull
     private Course course;
 
     public User getUser() {
