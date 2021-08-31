@@ -6,7 +6,7 @@ CREATE TABLE course(
 );
 
 CREATE TABLE user(
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     name varchar(100),
     PRIMARY KEY("id")
 );
