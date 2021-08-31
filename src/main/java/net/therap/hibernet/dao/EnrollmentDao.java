@@ -16,7 +16,11 @@ import java.util.Objects;
  */
 public class EnrollmentDao {
 
-    EntityManager entityManager = EntityManagerSingleton.getInstance().getEntityManager();
+    EntityManager entityManager;
+
+    public EnrollmentDao() {
+        entityManager = EntityManagerSingleton.getInstance().getEntityManager();
+    }
 
     public List<Enrollment> findAll() {
         Query query = entityManager.createQuery("from Enrollment");

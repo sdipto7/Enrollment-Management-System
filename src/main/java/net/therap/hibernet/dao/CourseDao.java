@@ -14,8 +14,11 @@ import java.util.Objects;
  */
 public class CourseDao {
 
-    EntityManager entityManager = EntityManagerSingleton.getInstance().getEntityManager();
+    EntityManager entityManager;
 
+    public CourseDao() {
+        entityManager = EntityManagerSingleton.getInstance().getEntityManager();
+    }
 
     public List<Course> findAll() {
         Query query = entityManager.createQuery("from Course");

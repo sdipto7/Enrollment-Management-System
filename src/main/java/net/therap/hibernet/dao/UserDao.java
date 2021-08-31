@@ -14,7 +14,11 @@ import java.util.Objects;
  */
 public class UserDao {
 
-    EntityManager entityManager = EntityManagerSingleton.getInstance().getEntityManager();
+    EntityManager entityManager;
+
+    public UserDao() {
+        entityManager = EntityManagerSingleton.getInstance().getEntityManager();
+    }
 
     public List<User> findAll() {
         Query query = entityManager.createQuery("from User");
