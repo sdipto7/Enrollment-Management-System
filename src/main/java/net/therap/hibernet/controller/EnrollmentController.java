@@ -5,10 +5,13 @@ import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.service.CourseService;
 import net.therap.hibernet.service.EnrollmentService;
 import net.therap.hibernet.service.UserService;
+import net.therap.hibernet.validator.EnrollmentValidator;
 
+import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author rumi.dipto
@@ -45,6 +48,11 @@ public class EnrollmentController {
         enrollment.setUser(userService.find(userId));
         enrollment.setCourse(courseService.find(courseId));
 
+        Set<ConstraintViolation<Enrollment>> errors = EnrollmentValidator.validate(enrollment);
+        for (ConstraintViolation<Enrollment> error : errors) {
+            System.out.println(error.getMessage());
+        }
+
         enrollmentService.saveOrUpdate(enrollment);
         System.out.println("The enrollment information is added successfully!");
     }
@@ -66,6 +74,11 @@ public class EnrollmentController {
         }
         enrollment.setUser(userService.find(userId));
         enrollment.setCourse(courseService.find(courseId));
+
+        Set<ConstraintViolation<Enrollment>> errors = EnrollmentValidator.validate(enrollment);
+        for (ConstraintViolation<Enrollment> error : errors) {
+            System.out.println(error.getMessage());
+        }
 
         enrollmentService.saveOrUpdate(enrollment);
         System.out.println("The enrollment information is updated successfully!");

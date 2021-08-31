@@ -3,10 +3,13 @@ package net.therap.hibernet.controller;
 import net.therap.hibernet.View.EnrollmentView;
 import net.therap.hibernet.domain.User;
 import net.therap.hibernet.service.UserService;
+import net.therap.hibernet.validator.EnrollmentValidator;
 
+import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author rumi.dipto
@@ -38,6 +41,11 @@ public class UserController {
         user.setId(id);
         user.setName(name);
 
+        Set<ConstraintViolation<User>> errors = EnrollmentValidator.validate(user);
+        for (ConstraintViolation<User> error : errors) {
+            System.out.println(error.getMessage());
+        }
+
         userService.saveOrUpdate(user);
         System.out.println("The user information is added successfully!");
     }
@@ -57,8 +65,12 @@ public class UserController {
             user.setIsNew(true);
             user.setId(userId);
         }
-
         user.setName(name);
+
+        Set<ConstraintViolation<User>> errors = EnrollmentValidator.validate(user);
+        for (ConstraintViolation<User> error : errors) {
+            System.out.println(error.getMessage());
+        }
 
         userService.saveOrUpdate(user);
         System.out.println("The user information is updated successfully!");
