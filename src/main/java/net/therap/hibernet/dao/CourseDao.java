@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class CourseDao {
 
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public CourseDao() {
         entityManager = EntityManagerSingleton.getInstance().getEntityManager();

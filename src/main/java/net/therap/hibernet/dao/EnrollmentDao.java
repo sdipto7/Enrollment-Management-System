@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class EnrollmentDao {
 
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public EnrollmentDao() {
         entityManager = EntityManagerSingleton.getInstance().getEntityManager();
