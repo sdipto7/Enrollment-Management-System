@@ -39,17 +39,18 @@ public class UserDao {
         } else {
             entityManager.merge(user);
         }
-
+        entityManager.flush();
         entityManager.getTransaction().commit();
     }
 
     public void delete(long id) {
-        User user = entityManager.find(User.class, id);
+        User user = entityManager.getReference(User.class, id);
 
         entityManager.getTransaction().begin();
         if (Objects.nonNull(user)) {
             entityManager.remove(user);
         }
+        entityManager.flush();
         entityManager.getTransaction().commit();
     }
 }

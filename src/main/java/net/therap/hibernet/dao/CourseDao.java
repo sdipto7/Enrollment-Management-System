@@ -38,7 +38,7 @@ public class CourseDao {
         } else {
             entityManager.merge(course);
         }
-
+        entityManager.flush();
         entityManager.getTransaction().commit();
     }
 
@@ -49,6 +49,7 @@ public class CourseDao {
         if (Objects.nonNull(course)) {
             entityManager.remove(course);
         }
+        entityManager.flush();
         entityManager.getTransaction().commit();
     }
 }

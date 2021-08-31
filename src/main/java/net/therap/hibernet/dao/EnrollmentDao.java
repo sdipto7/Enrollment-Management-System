@@ -38,17 +38,18 @@ public class EnrollmentDao {
         } else {
             entityManager.merge(enrollment);
         }
-
+        entityManager.flush();
         entityManager.getTransaction().commit();
     }
 
     public void delete(long id) {
-        Enrollment enrollment = entityManager.find(Enrollment.class, id);
+        Enrollment enrollment = entityManager.getReference(Enrollment.class, id);
 
         entityManager.getTransaction().begin();
         if (Objects.nonNull(enrollment)) {
             entityManager.remove(enrollment);
         }
+        entityManager.flush();
         entityManager.getTransaction().commit();
     }
 }
