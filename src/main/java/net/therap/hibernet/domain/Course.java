@@ -67,6 +67,15 @@ public class Course implements Serializable {
         this.enrollmentList = enrollmentList;
     }
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", courseCode='" + courseCode + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
+                '}';
+    }
+
     public boolean isNew() {
         return this.getId() == 0;
     }

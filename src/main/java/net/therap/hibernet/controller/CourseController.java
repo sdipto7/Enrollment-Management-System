@@ -5,6 +5,7 @@ import net.therap.hibernet.domain.Course;
 import net.therap.hibernet.service.CourseService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -36,8 +37,8 @@ public class CourseController {
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
 
-        courseService.save(course);
-        input.close();
+        courseService.saveOrUpdate(course);
+        System.out.println("The course information is added successfully!");
     }
 
     public void updateCourse() {
@@ -47,32 +48,38 @@ public class CourseController {
         input.nextLine();
 
         System.out.println("Enter the new course code: ");
-        String newCourseCode = input.nextLine();
+        String courseCode = input.nextLine();
 
         System.out.println("Enter the new course title: ");
-        String newCourseTitle = input.nextLine();
+        String courseTitle = input.nextLine();
 
-        courseService.update(courseId, newCourseCode, newCourseTitle);
-        input.close();
+        Course course = courseService.find(courseId);
+        if (Objects.isNull(course)) {
+            course = new Course();
+        }
+        course.setCourseCode(courseCode);
+        course.setCourseTitle(courseTitle);
+
+        courseService.saveOrUpdate(course);
+        System.out.println("The course information is updated successfully!");
     }
 
     public void viewCourse() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the course code: ");
+        System.out.println("Enter the course id: ");
         long courseId = input.nextLong();
 
         Course course = courseService.find(courseId);
 
         EnrollmentView.printCourse(course);
-        input.close();
     }
 
     public void deleteCourse() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the course code: ");
+        System.out.println("Enter the course id: ");
         long courseId = input.nextLong();
 
         courseService.delete(courseId);
-        input.close();
+        System.out.println("The course information is delete successfully!");
     }
 }

@@ -31,14 +31,8 @@ public class UserService {
         return userDao.find(id);
     }
 
-    public void save(User user) {
-        userDao.save(user);
-    }
-
-    public void update(long id, String newName) {
-        User user = entityManager.getReference(User.class, id);
-
-        userDao.update(user, newName);
+    public void saveOrUpdate(User user) {
+        userDao.saveOrUpdate(user);
     }
 
     public void delete(long id) {

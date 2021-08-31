@@ -29,6 +29,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Enrollment> enrollmentList;
 
+    @Transient
+    private boolean isNew;
+
     public long getId() {
         return id;
     }
@@ -46,7 +49,11 @@ public class User implements Serializable {
     }
 
     public boolean isNew() {
-        return this.getId() == 0;
+        return isNew;
+    }
+
+    public void setIsNew(boolean isNew) {
+        this.isNew = isNew;
     }
 
     @Override

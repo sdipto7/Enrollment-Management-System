@@ -1,8 +1,6 @@
 package net.therap.hibernet.dao;
 
-import net.therap.hibernet.domain.Course;
 import net.therap.hibernet.domain.Enrollment;
-import net.therap.hibernet.domain.User;
 import net.therap.hibernet.util.EntityManagerSingleton;
 
 import javax.persistence.EntityManager;
@@ -32,26 +30,14 @@ public class EnrollmentDao {
         return entityManager.find(Enrollment.class, id);
     }
 
-    public void save(Enrollment enrollment, long userId, long courseId) {
-        User user = entityManager.find(User.class, userId);
-
-        Course course = entityManager.find(Course.class, courseId);
-
-        enrollment.setUser(user);
-        enrollment.setCourse(course);
-
+    public void saveOrUpdate(Enrollment enrollment) {
         entityManager.getTransaction().begin();
 
-        entityManager.persist(enrollment);
-
-        entityManager.getTransaction().commit();
-    }
-
-    public void update(Enrollment enrollment, User user, Course course) {
-        entityManager.getTransaction().begin();
-
-        enrollment.setUser(user);
-        enrollment.setCourse(course);
+        if (enrollment.isNew()) {
+            entityManager.persist(enrollment);
+        } else {
+            entityManager.merge(enrollment);
+        }
 
         entityManager.getTransaction().commit();
     }

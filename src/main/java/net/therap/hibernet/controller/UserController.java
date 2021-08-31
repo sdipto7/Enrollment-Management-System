@@ -5,6 +5,7 @@ import net.therap.hibernet.domain.User;
 import net.therap.hibernet.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -37,8 +38,8 @@ public class UserController {
         user.setId(id);
         user.setName(name);
 
-        userService.save(user);
-        input.close();
+        userService.saveOrUpdate(user);
+        System.out.println("The user information is added successfully!");
     }
 
     public void updateUser() {
@@ -48,10 +49,19 @@ public class UserController {
         input.nextLine();
 
         System.out.println("Enter new name: ");
-        String newName = input.nextLine();
+        String name = input.nextLine();
 
-        userService.update(userId, newName);
-        input.close();
+        User user = userService.find(userId);
+        if (Objects.isNull(user)) {
+            user = new User();
+            user.setIsNew(true);
+            user.setId(userId);
+        }
+
+        user.setName(name);
+
+        userService.saveOrUpdate(user);
+        System.out.println("The user information is updated successfully!");
     }
 
     public void viewUser() {
@@ -62,7 +72,6 @@ public class UserController {
         User user = userService.find(userId);
 
         EnrollmentView.printUser(user);
-        input.close();
     }
 
     public void deleteUser() {
@@ -71,6 +80,6 @@ public class UserController {
         long userId = input.nextLong();
 
         userService.delete(userId);
-        input.close();
+        System.out.println("The user information is deleted successfully!");
     }
 }

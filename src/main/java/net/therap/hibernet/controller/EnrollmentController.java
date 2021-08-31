@@ -2,9 +2,12 @@ package net.therap.hibernet.controller;
 
 import net.therap.hibernet.View.EnrollmentView;
 import net.therap.hibernet.domain.Enrollment;
+import net.therap.hibernet.service.CourseService;
 import net.therap.hibernet.service.EnrollmentService;
+import net.therap.hibernet.service.UserService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -14,9 +17,13 @@ import java.util.Scanner;
 public class EnrollmentController {
 
     EnrollmentService enrollmentService;
+    UserService userService;
+    CourseService courseService;
 
     public EnrollmentController() {
         enrollmentService = new EnrollmentService();
+        userService = new UserService();
+        courseService = new CourseService();
     }
 
     public void viewAllEnrollments() {
@@ -35,10 +42,11 @@ public class EnrollmentController {
         input.nextLine();
 
         Enrollment enrollment = new Enrollment();
+        enrollment.setUser(userService.find(userId));
+        enrollment.setCourse(courseService.find(courseId));
 
-
-        enrollmentService.save(enrollment, userId, courseId);
-        input.close();
+        enrollmentService.saveOrUpdate(enrollment);
+        System.out.println("The enrollment information is added successfully!");
     }
 
     public void updateEnrollment() {
@@ -47,13 +55,20 @@ public class EnrollmentController {
         long enrollmentId = input.nextLong();
 
         System.out.println("Enter the new user id: ");
-        long newUserId = input.nextLong();
+        long userId = input.nextLong();
 
         System.out.println("Enter the new course id: ");
-        long newCourseId = input.nextLong();
+        long courseId = input.nextLong();
 
-        enrollmentService.update(enrollmentId, newUserId, newCourseId);
-        input.close();
+        Enrollment enrollment = enrollmentService.find(enrollmentId);
+        if (!Objects.nonNull(enrollment)) {
+            enrollment = new Enrollment();
+        }
+        enrollment.setUser(userService.find(userId));
+        enrollment.setCourse(courseService.find(courseId));
+
+        enrollmentService.saveOrUpdate(enrollment);
+        System.out.println("The enrollment information is updated successfully!");
     }
 
     public void viewEnrollment() {
@@ -64,7 +79,6 @@ public class EnrollmentController {
         Enrollment enrollment = enrollmentService.find(enrollmentId);
 
         EnrollmentView.printEnrollment(enrollment);
-        input.close();
     }
 
     public void deleteEnrollment() {
@@ -73,6 +87,6 @@ public class EnrollmentController {
         long enrollmentId = input.nextLong();
 
         enrollmentService.delete(enrollmentId);
-        input.close();
+        System.out.println("The enrollment information is deleted successfully!");
     }
 }

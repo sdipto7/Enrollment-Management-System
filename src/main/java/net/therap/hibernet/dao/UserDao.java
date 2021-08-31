@@ -30,18 +30,15 @@ public class UserDao {
         return entityManager.find(User.class, id);
     }
 
-    public void update(User user, String newName) {
+    public void saveOrUpdate(User user) {
         entityManager.getTransaction().begin();
 
-        user.setName(newName);
-
-        entityManager.getTransaction().commit();
-    }
-
-    public void save(User user) {
-        entityManager.getTransaction().begin();
-
-        entityManager.persist(user);
+        if (user.isNew()) {
+            user.setIsNew(false);
+            entityManager.persist(user);
+        } else {
+            entityManager.merge(user);
+        }
 
         entityManager.getTransaction().commit();
     }

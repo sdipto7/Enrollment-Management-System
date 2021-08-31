@@ -30,19 +30,14 @@ public class CourseDao {
         return entityManager.find(Course.class, id);
     }
 
-    public void update(Course course, String newCourseCode, String newCourseTitle) {
+    public void saveOrUpdate(Course course) {
         entityManager.getTransaction().begin();
 
-        course.setCourseCode(newCourseCode);
-        course.setCourseTitle(newCourseTitle);
-
-        entityManager.getTransaction().commit();
-    }
-
-    public void save(Course course) {
-        entityManager.getTransaction().begin();
-
-        entityManager.persist(course);
+        if (course.isNew()) {
+            entityManager.persist(course);
+        } else {
+            entityManager.merge(course);
+        }
 
         entityManager.getTransaction().commit();
     }
