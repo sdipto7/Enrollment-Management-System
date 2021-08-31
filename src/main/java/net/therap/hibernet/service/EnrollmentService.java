@@ -4,7 +4,7 @@ import net.therap.hibernet.dao.EnrollmentDao;
 import net.therap.hibernet.domain.Course;
 import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.domain.User;
-import net.therap.hibernet.util.EntityManagerConfiguration;
+import net.therap.hibernet.util.EntityManagerSingleton;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,7 +20,7 @@ public class EnrollmentService {
     private EnrollmentDao enrollmentDao;
 
     public EnrollmentService() {
-        entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+        entityManager = EntityManagerSingleton.getInstance().getEntityManager();
 
         enrollmentDao = new EnrollmentDao();
     }

@@ -1,7 +1,7 @@
 package net.therap.hibernet.dao;
 
 import net.therap.hibernet.domain.Course;
-import net.therap.hibernet.util.EntityManagerConfiguration;
+import net.therap.hibernet.util.EntityManagerSingleton;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class CourseDao {
 
-    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+    EntityManager entityManager = EntityManagerSingleton.getInstance().getEntityManager();
 
 
     public List<Course> findAll() {

@@ -1,7 +1,7 @@
 package net.therap.hibernet.dao;
 
 import net.therap.hibernet.domain.User;
-import net.therap.hibernet.util.EntityManagerConfiguration;
+import net.therap.hibernet.util.EntityManagerSingleton;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class UserDao {
 
-    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+    EntityManager entityManager = EntityManagerSingleton.getInstance().getEntityManager();
 
     public List<User> findAll() {
         Query query = entityManager.createQuery("from User");
