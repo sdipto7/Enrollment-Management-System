@@ -26,7 +26,8 @@ public class User implements Serializable {
     @Size(min = 2, max = 100)
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.REMOVE)
     private List<Enrollment> enrollmentList;
 
     @Transient

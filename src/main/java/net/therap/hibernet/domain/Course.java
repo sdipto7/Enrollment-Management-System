@@ -31,8 +31,7 @@ public class Course implements Serializable {
     private String courseTitle;
 
     @OneToMany(mappedBy = "course",
-            cascade = CascadeType.REMOVE,
-            orphanRemoval = true)
+            cascade = CascadeType.REMOVE)
     private List<Enrollment> enrollmentList;
 
     public String getCourseCode() {
