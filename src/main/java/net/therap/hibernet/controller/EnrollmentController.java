@@ -5,7 +5,7 @@ import net.therap.hibernet.domain.Enrollment;
 import net.therap.hibernet.service.CourseService;
 import net.therap.hibernet.service.EnrollmentService;
 import net.therap.hibernet.service.UserService;
-import net.therap.hibernet.validator.EnrollmentValidator;
+import net.therap.hibernet.validator.Validator;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -19,9 +19,9 @@ import java.util.Set;
  */
 public class EnrollmentController {
 
-    EnrollmentService enrollmentService;
-    UserService userService;
-    CourseService courseService;
+    private EnrollmentService enrollmentService;
+    private UserService userService;
+    private CourseService courseService;
 
     public EnrollmentController() {
         enrollmentService = new EnrollmentService();
@@ -48,7 +48,7 @@ public class EnrollmentController {
         enrollment.setUser(userService.find(userId));
         enrollment.setCourse(courseService.find(courseId));
 
-        Set<ConstraintViolation<Enrollment>> errors = EnrollmentValidator.validate(enrollment);
+        Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
         for (ConstraintViolation<Enrollment> error : errors) {
             System.out.println(error.getMessage());
         }
@@ -62,26 +62,27 @@ public class EnrollmentController {
         System.out.println("Enter the id of enrollment: ");
         long enrollmentId = input.nextLong();
 
-        System.out.println("Enter the new user id: ");
-        long userId = input.nextLong();
-
-        System.out.println("Enter the new course id: ");
-        long courseId = input.nextLong();
-
         Enrollment enrollment = enrollmentService.find(enrollmentId);
-        if (!Objects.nonNull(enrollment)) {
-            enrollment = new Enrollment();
-        }
-        enrollment.setUser(userService.find(userId));
-        enrollment.setCourse(courseService.find(courseId));
+        if (Objects.nonNull(enrollment)) {
+            System.out.println("Enter the new user id: ");
+            long userId = input.nextLong();
 
-        Set<ConstraintViolation<Enrollment>> errors = EnrollmentValidator.validate(enrollment);
-        for (ConstraintViolation<Enrollment> error : errors) {
-            System.out.println(error.getMessage());
-        }
+            System.out.println("Enter the new course id: ");
+            long courseId = input.nextLong();
 
-        enrollmentService.saveOrUpdate(enrollment);
-        System.out.println("The enrollment information is updated successfully!");
+            enrollment.setUser(userService.find(userId));
+            enrollment.setCourse(courseService.find(courseId));
+
+            Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
+            for (ConstraintViolation<Enrollment> error : errors) {
+                System.out.println(error.getMessage());
+            }
+
+            enrollmentService.saveOrUpdate(enrollment);
+            System.out.println("The enrollment information is updated successfully!");
+        } else {
+            System.out.println("The enrollment id does not exist");
+        }
     }
 
     public void viewEnrollment() {

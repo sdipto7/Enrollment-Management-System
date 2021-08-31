@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class UserDao {
 
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public UserDao() {
         entityManager = EntityManagerSingleton.getInstance().getEntityManager();
@@ -34,7 +34,6 @@ public class UserDao {
         entityManager.getTransaction().begin();
 
         if (user.isNew()) {
-            user.setIsNew(false);
             entityManager.persist(user);
         } else {
             entityManager.merge(user);

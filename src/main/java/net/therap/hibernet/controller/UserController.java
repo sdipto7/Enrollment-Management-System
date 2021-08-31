@@ -3,7 +3,7 @@ package net.therap.hibernet.controller;
 import net.therap.hibernet.View.EnrollmentView;
 import net.therap.hibernet.domain.User;
 import net.therap.hibernet.service.UserService;
-import net.therap.hibernet.validator.EnrollmentValidator;
+import net.therap.hibernet.validator.Validator;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -30,18 +30,13 @@ public class UserController {
 
     public void addUser() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter new user's id: ");
-        long id = input.nextLong();
-        input.nextLine();
-
         System.out.println("Enter new user's name: ");
         String name = input.nextLine();
 
         User user = new User();
-        user.setId(id);
         user.setName(name);
 
-        Set<ConstraintViolation<User>> errors = EnrollmentValidator.validate(user);
+        Set<ConstraintViolation<User>> errors = Validator.validate(user);
         for (ConstraintViolation<User> error : errors) {
             System.out.println(error.getMessage());
         }
@@ -56,24 +51,23 @@ public class UserController {
         long userId = input.nextLong();
         input.nextLine();
 
-        System.out.println("Enter new name: ");
-        String name = input.nextLine();
-
         User user = userService.find(userId);
-        if (Objects.isNull(user)) {
-            user = new User();
-            user.setIsNew(true);
-            user.setId(userId);
-        }
-        user.setName(name);
+        if (Objects.nonNull(user)) {
+            System.out.println("Enter new name: ");
+            String name = input.nextLine();
 
-        Set<ConstraintViolation<User>> errors = EnrollmentValidator.validate(user);
-        for (ConstraintViolation<User> error : errors) {
-            System.out.println(error.getMessage());
-        }
+            user.setName(name);
 
-        userService.saveOrUpdate(user);
-        System.out.println("The user information is updated successfully!");
+            Set<ConstraintViolation<User>> errors = Validator.validate(user);
+            for (ConstraintViolation<User> error : errors) {
+                System.out.println(error.getMessage());
+            }
+
+            userService.saveOrUpdate(user);
+            System.out.println("The user information is updated successfully!");
+        } else {
+            System.out.println("The user does not exist");
+        }
     }
 
     public void viewUser() {

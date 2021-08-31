@@ -18,7 +18,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
@@ -29,9 +29,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.REMOVE)
     private List<Enrollment> enrollmentList;
-
-    @Transient
-    private boolean isNew;
 
     public long getId() {
         return id;
@@ -49,20 +46,11 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public boolean isNew() {
-        return isNew;
-    }
-
-    public void setIsNew(boolean isNew) {
-        this.isNew = isNew;
-    }
-
     @Override
     public boolean equals(Object object) {
         if (Objects.isNull(object) || !(object instanceof User)) {
             return false;
         }
-
         User that = (User) object;
 
         return this.getId() == that.getId();
@@ -71,5 +59,9 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(this.getName());
+    }
+
+    public boolean isNew() {
+        return this.getId() == 0;
     }
 }

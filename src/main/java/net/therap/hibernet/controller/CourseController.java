@@ -3,7 +3,7 @@ package net.therap.hibernet.controller;
 import net.therap.hibernet.View.EnrollmentView;
 import net.therap.hibernet.domain.Course;
 import net.therap.hibernet.service.CourseService;
-import net.therap.hibernet.validator.EnrollmentValidator;
+import net.therap.hibernet.validator.Validator;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -40,7 +40,7 @@ public class CourseController {
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
 
-        Set<ConstraintViolation<Course>> errors = EnrollmentValidator.validate(course);
+        Set<ConstraintViolation<Course>> errors = Validator.validate(course);
         for (ConstraintViolation<Course> error : errors) {
             System.out.println(error.getMessage());
         }
@@ -55,26 +55,27 @@ public class CourseController {
         long courseId = input.nextLong();
         input.nextLine();
 
-        System.out.println("Enter the new course code: ");
-        String courseCode = input.nextLine();
-
-        System.out.println("Enter the new course title: ");
-        String courseTitle = input.nextLine();
-
         Course course = courseService.find(courseId);
-        if (Objects.isNull(course)) {
-            course = new Course();
-        }
-        course.setCourseCode(courseCode);
-        course.setCourseTitle(courseTitle);
+        if (Objects.nonNull(course)) {
+            System.out.println("Enter the new course code: ");
+            String courseCode = input.nextLine();
 
-        Set<ConstraintViolation<Course>> errors = EnrollmentValidator.validate(course);
-        for (ConstraintViolation<Course> error : errors) {
-            System.out.println(error.getMessage());
-        }
+            System.out.println("Enter the new course title: ");
+            String courseTitle = input.nextLine();
 
-        courseService.saveOrUpdate(course);
-        System.out.println("The course information is updated successfully!");
+            course.setCourseCode(courseCode);
+            course.setCourseTitle(courseTitle);
+
+            Set<ConstraintViolation<Course>> errors = Validator.validate(course);
+            for (ConstraintViolation<Course> error : errors) {
+                System.out.println(error.getMessage());
+            }
+
+            courseService.saveOrUpdate(course);
+            System.out.println("The course information is updated successfully!");
+        } else {
+            System.out.println("The course does not exist");
+        }
     }
 
     public void viewCourse() {
