@@ -15,11 +15,13 @@ import java.util.List;
  */
 public class EnrollmentService {
 
-    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+    EntityManager entityManager;
 
     private EnrollmentDao enrollmentDao;
 
     public EnrollmentService() {
+        entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+
         enrollmentDao = new EnrollmentDao();
     }
 
@@ -27,8 +29,8 @@ public class EnrollmentService {
         return enrollmentDao.findAll();
     }
 
-    public Enrollment findById(long id) {
-        return enrollmentDao.findById(id);
+    public Enrollment find(long id) {
+        return enrollmentDao.find(id);
     }
 
     public void save(Enrollment enrollment, long userId, long courseId) {

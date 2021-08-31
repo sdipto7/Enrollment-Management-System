@@ -22,7 +22,7 @@ public class UserDao {
         return query.getResultList();
     }
 
-    public User findUserById(long id) {
+    public User find(long id) {
         return entityManager.find(User.class, id);
     }
 

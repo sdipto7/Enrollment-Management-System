@@ -59,7 +59,7 @@ public class UserController {
         System.out.println("Enter the user's id: ");
         long userId = input.nextLong();
 
-        User user = userService.findUserById(userId);
+        User user = userService.find(userId);
 
         EnrollmentView.printUser(user);
         input.close();

@@ -13,11 +13,13 @@ import java.util.List;
  */
 public class CourseService {
 
-    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+    EntityManager entityManager;
 
     private CourseDao courseDao;
 
     public CourseService() {
+        entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+
         courseDao = new CourseDao();
     }
 
@@ -25,8 +27,8 @@ public class CourseService {
         return courseDao.findAll();
     }
 
-    public Course findCourseById(long id) {
-        return courseDao.findCourseById(id);
+    public Course find(long id) {
+        return courseDao.find(id);
     }
 
     public void save(Course course) {

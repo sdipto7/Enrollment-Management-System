@@ -61,7 +61,7 @@ public class CourseController {
         System.out.println("Enter the course code: ");
         long courseId = input.nextLong();
 
-        Course course = courseService.findCourseById(courseId);
+        Course course = courseService.find(courseId);
 
         EnrollmentView.printCourse(course);
         input.close();

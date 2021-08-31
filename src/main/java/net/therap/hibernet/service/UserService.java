@@ -13,11 +13,13 @@ import java.util.List;
  */
 public class UserService {
 
-    EntityManager entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+    EntityManager entityManager;
 
     private UserDao userDao;
 
     public UserService() {
+        entityManager = EntityManagerConfiguration.getInstance().getEntityManager();
+
         userDao = new UserDao();
     }
 
@@ -25,8 +27,8 @@ public class UserService {
         return userDao.findAll();
     }
 
-    public User findUserById(long id) {
-        return userDao.findUserById(id);
+    public User find(long id) {
+        return userDao.find(id);
     }
 
     public void save(User user) {

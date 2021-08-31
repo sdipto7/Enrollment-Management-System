@@ -24,7 +24,7 @@ public class EnrollmentDao {
         return query.getResultList();
     }
 
-    public Enrollment findById(long id) {
+    public Enrollment find(long id) {
         return entityManager.find(Enrollment.class, id);
     }
 

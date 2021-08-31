@@ -30,11 +30,12 @@ public class EnrollmentController {
         long userId = input.nextLong();
         input.nextLine();
 
-        System.out.println("Enter course code");
+        System.out.println("Enter course id");
         long courseId = input.nextLong();
         input.nextLine();
 
         Enrollment enrollment = new Enrollment();
+
 
         enrollmentService.save(enrollment, userId, courseId);
         input.close();
@@ -60,7 +61,7 @@ public class EnrollmentController {
         System.out.println("Enter the enrollment id: ");
         long enrollmentId = input.nextLong();
 
-        Enrollment enrollment = enrollmentService.findById(enrollmentId);
+        Enrollment enrollment = enrollmentService.find(enrollmentId);
 
         EnrollmentView.printEnrollment(enrollment);
         input.close();

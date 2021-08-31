@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @author rumi.dipto
  * @since 8/24/21
  */
-public class Controller {
+public class HomeController {
 
     public static void main(String[] args) {
 

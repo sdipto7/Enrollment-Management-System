@@ -23,7 +23,7 @@ public class CourseDao {
         return query.getResultList();
     }
 
-    public Course findCourseById(long id) {
+    public Course find(long id) {
         return entityManager.find(Course.class, id);
     }
 
