@@ -37,8 +37,11 @@ public class UserController {
         user.setName(name);
 
         Set<ConstraintViolation<User>> errors = Validator.validate(user);
-        for (ConstraintViolation<User> error : errors) {
-            System.out.println(error.getMessage());
+        if (errors.size() > 0) {
+            for (ConstraintViolation<User> error : errors) {
+                System.out.println(error.getMessage());
+            }
+            return;
         }
 
         userService.saveOrUpdate(user);
@@ -52,22 +55,26 @@ public class UserController {
         input.nextLine();
 
         User user = userService.find(userId);
-        if (Objects.nonNull(user)) {
-            System.out.println("Enter new name: ");
-            String name = input.nextLine();
+        if (Objects.isNull(user)) {
+            System.out.println("The user does not exist");
+            return;
+        }
 
-            user.setName(name);
+        System.out.println("Enter new name: ");
+        String name = input.nextLine();
 
-            Set<ConstraintViolation<User>> errors = Validator.validate(user);
+        user.setName(name);
+
+        Set<ConstraintViolation<User>> errors = Validator.validate(user);
+        if (errors.size() > 0) {
             for (ConstraintViolation<User> error : errors) {
                 System.out.println(error.getMessage());
             }
-
-            userService.saveOrUpdate(user);
-            System.out.println("The user information is updated successfully!");
-        } else {
-            System.out.println("The user does not exist");
+            return;
         }
+
+        userService.saveOrUpdate(user);
+        System.out.println("The user information is updated successfully!");
     }
 
     public void viewUser() {

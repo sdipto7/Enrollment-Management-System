@@ -41,8 +41,11 @@ public class CourseController {
         course.setCourseTitle(courseTitle);
 
         Set<ConstraintViolation<Course>> errors = Validator.validate(course);
-        for (ConstraintViolation<Course> error : errors) {
-            System.out.println(error.getMessage());
+        if (errors.size() > 0) {
+            for (ConstraintViolation<Course> error : errors) {
+                System.out.println(error.getMessage());
+            }
+            return;
         }
 
         courseService.saveOrUpdate(course);
@@ -56,26 +59,30 @@ public class CourseController {
         input.nextLine();
 
         Course course = courseService.find(courseId);
-        if (Objects.nonNull(course)) {
-            System.out.println("Enter the new course code: ");
-            String courseCode = input.nextLine();
+        if (Objects.isNull(course)) {
+            System.out.println("The course does not exist");
+            return;
+        }
 
-            System.out.println("Enter the new course title: ");
-            String courseTitle = input.nextLine();
+        System.out.println("Enter the new course code: ");
+        String courseCode = input.nextLine();
 
-            course.setCourseCode(courseCode);
-            course.setCourseTitle(courseTitle);
+        System.out.println("Enter the new course title: ");
+        String courseTitle = input.nextLine();
 
-            Set<ConstraintViolation<Course>> errors = Validator.validate(course);
+        course.setCourseCode(courseCode);
+        course.setCourseTitle(courseTitle);
+
+        Set<ConstraintViolation<Course>> errors = Validator.validate(course);
+        if (errors.size() > 0) {
             for (ConstraintViolation<Course> error : errors) {
                 System.out.println(error.getMessage());
             }
-
-            courseService.saveOrUpdate(course);
-            System.out.println("The course information is updated successfully!");
-        } else {
-            System.out.println("The course does not exist");
+            return;
         }
+
+        courseService.saveOrUpdate(course);
+        System.out.println("The course information is updated successfully!");
     }
 
     public void viewCourse() {

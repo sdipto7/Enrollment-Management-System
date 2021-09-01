@@ -49,8 +49,11 @@ public class EnrollmentController {
         enrollment.setCourse(courseService.find(courseId));
 
         Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
-        for (ConstraintViolation<Enrollment> error : errors) {
-            System.out.println(error.getMessage());
+        if (errors.size() > 0) {
+            for (ConstraintViolation<Enrollment> error : errors) {
+                System.out.println(error.getMessage());
+            }
+            return;
         }
 
         enrollmentService.saveOrUpdate(enrollment);
@@ -63,26 +66,30 @@ public class EnrollmentController {
         long enrollmentId = input.nextLong();
 
         Enrollment enrollment = enrollmentService.find(enrollmentId);
-        if (Objects.nonNull(enrollment)) {
-            System.out.println("Enter the new user id: ");
-            long userId = input.nextLong();
+        if (Objects.isNull(enrollment)) {
+            System.out.println("The enrollment id does not exist");
+            return;
+        }
 
-            System.out.println("Enter the new course id: ");
-            long courseId = input.nextLong();
+        System.out.println("Enter the new user id: ");
+        long userId = input.nextLong();
 
-            enrollment.setUser(userService.find(userId));
-            enrollment.setCourse(courseService.find(courseId));
+        System.out.println("Enter the new course id: ");
+        long courseId = input.nextLong();
 
-            Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
+        enrollment.setUser(userService.find(userId));
+        enrollment.setCourse(courseService.find(courseId));
+
+        Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
+        if (errors.size() > 0) {
             for (ConstraintViolation<Enrollment> error : errors) {
                 System.out.println(error.getMessage());
             }
-
-            enrollmentService.saveOrUpdate(enrollment);
-            System.out.println("The enrollment information is updated successfully!");
-        } else {
-            System.out.println("The enrollment id does not exist");
+            return;
         }
+
+        enrollmentService.saveOrUpdate(enrollment);
+        System.out.println("The enrollment information is updated successfully!");
     }
 
     public void viewEnrollment() {
