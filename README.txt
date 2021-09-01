@@ -1,1 +1,1 @@
-JUST TO INITIALIZE MASTER BRANCH
+This is a course-user management console-project using hibernate framework.
