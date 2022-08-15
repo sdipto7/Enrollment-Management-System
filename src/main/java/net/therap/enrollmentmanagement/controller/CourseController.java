@@ -1,15 +1,12 @@
-package net.therap.hibernet.controller;
+package net.therap.enrollmentmanagement.controller;
 
-import net.therap.hibernet.View.EnrollmentView;
-import net.therap.hibernet.domain.Course;
-import net.therap.hibernet.service.CourseService;
-import net.therap.hibernet.validator.Validator;
+import net.therap.enrollmentmanagement.view.EnrollmentView;
+import net.therap.enrollmentmanagement.domain.Course;
+import net.therap.enrollmentmanagement.service.CourseService;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Set;
 
 /**
  * @author rumi.dipto
@@ -40,14 +37,6 @@ public class CourseController {
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
 
-        Set<ConstraintViolation<Course>> errors = Validator.validate(course);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<Course> error : errors) {
-                System.out.println(error.getMessage());
-            }
-            return;
-        }
-
         courseService.saveOrUpdate(course);
         System.out.println("The course information is added successfully!");
     }
@@ -72,14 +61,6 @@ public class CourseController {
 
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
-
-        Set<ConstraintViolation<Course>> errors = Validator.validate(course);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<Course> error : errors) {
-                System.out.println(error.getMessage());
-            }
-            return;
-        }
 
         courseService.saveOrUpdate(course);
         System.out.println("The course information is updated successfully!");

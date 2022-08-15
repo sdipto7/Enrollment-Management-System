@@ -1,15 +1,12 @@
-package net.therap.hibernet.controller;
+package net.therap.enrollmentmanagement.controller;
 
-import net.therap.hibernet.View.EnrollmentView;
-import net.therap.hibernet.domain.User;
-import net.therap.hibernet.service.UserService;
-import net.therap.hibernet.validator.Validator;
+import net.therap.enrollmentmanagement.view.EnrollmentView;
+import net.therap.enrollmentmanagement.domain.User;
+import net.therap.enrollmentmanagement.service.UserService;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Set;
 
 /**
  * @author rumi.dipto
@@ -36,14 +33,6 @@ public class UserController {
         User user = new User();
         user.setName(name);
 
-        Set<ConstraintViolation<User>> errors = Validator.validate(user);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<User> error : errors) {
-                System.out.println(error.getMessage());
-            }
-            return;
-        }
-
         userService.saveOrUpdate(user);
         System.out.println("The user information is added successfully!");
     }
@@ -64,14 +53,6 @@ public class UserController {
         String name = input.nextLine();
 
         user.setName(name);
-
-        Set<ConstraintViolation<User>> errors = Validator.validate(user);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<User> error : errors) {
-                System.out.println(error.getMessage());
-            }
-            return;
-        }
 
         userService.saveOrUpdate(user);
         System.out.println("The user information is updated successfully!");

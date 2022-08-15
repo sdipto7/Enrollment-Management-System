@@ -1,4 +1,4 @@
-package net.therap.hibernet.util;
+package net.therap.enrollmentmanagement.util;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

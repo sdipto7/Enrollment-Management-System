@@ -1,4 +1,4 @@
-package net.therap.hibernet.controller;
+package net.therap.enrollmentmanagement.controller;
 
 import java.util.Scanner;
 

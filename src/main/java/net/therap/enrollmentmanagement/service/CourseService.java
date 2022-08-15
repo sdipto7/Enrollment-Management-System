@@ -1,7 +1,7 @@
-package net.therap.hibernet.service;
+package net.therap.enrollmentmanagement.service;
 
-import net.therap.hibernet.dao.CourseDao;
-import net.therap.hibernet.domain.Course;
+import net.therap.enrollmentmanagement.dao.CourseDao;
+import net.therap.enrollmentmanagement.domain.Course;
 
 import java.util.List;
 

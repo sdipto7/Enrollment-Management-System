@@ -1,7 +1,7 @@
-package net.therap.hibernet.service;
+package net.therap.enrollmentmanagement.service;
 
-import net.therap.hibernet.dao.UserDao;
-import net.therap.hibernet.domain.User;
+import net.therap.enrollmentmanagement.dao.UserDao;
+import net.therap.enrollmentmanagement.domain.User;
 
 import java.util.List;
 

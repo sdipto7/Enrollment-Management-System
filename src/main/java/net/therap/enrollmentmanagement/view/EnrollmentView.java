@@ -1,8 +1,8 @@
-package net.therap.hibernet.View;
+package net.therap.enrollmentmanagement.view;
 
-import net.therap.hibernet.domain.Course;
-import net.therap.hibernet.domain.Enrollment;
-import net.therap.hibernet.domain.User;
+import net.therap.enrollmentmanagement.domain.Course;
+import net.therap.enrollmentmanagement.domain.Enrollment;
+import net.therap.enrollmentmanagement.domain.User;
 
 import java.util.Collections;
 import java.util.List;

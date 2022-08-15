@@ -1,17 +1,14 @@
-package net.therap.hibernet.controller;
+package net.therap.enrollmentmanagement.controller;
 
-import net.therap.hibernet.View.EnrollmentView;
-import net.therap.hibernet.domain.Enrollment;
-import net.therap.hibernet.service.CourseService;
-import net.therap.hibernet.service.EnrollmentService;
-import net.therap.hibernet.service.UserService;
-import net.therap.hibernet.validator.Validator;
+import net.therap.enrollmentmanagement.view.EnrollmentView;
+import net.therap.enrollmentmanagement.domain.Enrollment;
+import net.therap.enrollmentmanagement.service.CourseService;
+import net.therap.enrollmentmanagement.service.EnrollmentService;
+import net.therap.enrollmentmanagement.service.UserService;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.Set;
 
 /**
  * @author rumi.dipto
@@ -48,14 +45,6 @@ public class EnrollmentController {
         enrollment.setUser(userService.find(userId));
         enrollment.setCourse(courseService.find(courseId));
 
-        Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<Enrollment> error : errors) {
-                System.out.println(error.getMessage());
-            }
-            return;
-        }
-
         enrollmentService.saveOrUpdate(enrollment);
         System.out.println("The enrollment information is added successfully!");
     }
@@ -79,14 +68,6 @@ public class EnrollmentController {
 
         enrollment.setUser(userService.find(userId));
         enrollment.setCourse(courseService.find(courseId));
-
-        Set<ConstraintViolation<Enrollment>> errors = Validator.validate(enrollment);
-        if (errors.size() > 0) {
-            for (ConstraintViolation<Enrollment> error : errors) {
-                System.out.println(error.getMessage());
-            }
-            return;
-        }
 
         enrollmentService.saveOrUpdate(enrollment);
         System.out.println("The enrollment information is updated successfully!");
