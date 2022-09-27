@@ -1,12 +1,14 @@
 package net.therap.enrollmentmanagement.controller;
 
-import net.therap.enrollmentmanagement.view.EnrollmentView;
 import net.therap.enrollmentmanagement.domain.Course;
+import net.therap.enrollmentmanagement.helper.CourseHelper;
 import net.therap.enrollmentmanagement.service.CourseService;
+import net.therap.enrollmentmanagement.view.CourseView;
+import net.therap.enrollmentmanagement.view.GlobalView;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+
+import static java.util.Objects.isNull;
 
 /**
  * @author rumi.dipto
@@ -14,74 +16,78 @@ import java.util.Scanner;
  */
 public class CourseController {
 
-    private CourseService courseService;
+    private final CourseHelper courseHelper;
+
+    private final CourseService courseService;
 
     public CourseController() {
+        courseHelper = new CourseHelper();
         courseService = new CourseService();
+    }
+
+    public void viewCourse() {
+        long id = courseHelper.getCourseIdInput();
+
+        Course course = courseService.find(id);
+        if (isNull(course)) {
+            GlobalView.printMessage("No Course exists with the given id!");
+            return;
+        }
+
+        CourseView.printCourse(course);
     }
 
     public void viewAllCourses() {
         List<Course> courseList = courseService.findAll();
-        EnrollmentView.printCourseList(courseList);
+        if (courseList.size() == 0) {
+            GlobalView.printMessage("Currently, there are no courses!");
+            return;
+        }
+
+        CourseView.printCourseList(courseList);
     }
 
-    public void addCourse() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter new course code: ");
-        String courseCode = input.nextLine();
-
-        System.out.println("Enter new course title: ");
-        String courseTitle = input.nextLine();
+    public void createCourse() {
+        String courseCode = courseHelper.getCourseCodeInput();
+        String courseTitle = courseHelper.getCourseTitleInput();
 
         Course course = new Course();
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
 
         courseService.saveOrUpdate(course);
-        System.out.println("The course information is added successfully!");
+        System.out.println("The course is created successfully!");
     }
 
     public void updateCourse() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the id of the course: ");
-        long courseId = input.nextLong();
-        input.nextLine();
+        long id = courseHelper.getCourseIdInput();
 
-        Course course = courseService.find(courseId);
-        if (Objects.isNull(course)) {
-            System.out.println("The course does not exist");
+        Course course = courseService.find(id);
+        if (isNull(course)) {
+            GlobalView.printMessage("No User exists with the given id!");
             return;
         }
 
-        System.out.println("Enter the new course code: ");
-        String courseCode = input.nextLine();
-
-        System.out.println("Enter the new course title: ");
-        String courseTitle = input.nextLine();
+        String courseCode = courseHelper.getCourseCodeInput();
+        String courseTitle = courseHelper.getCourseTitleInput();
 
         course.setCourseCode(courseCode);
         course.setCourseTitle(courseTitle);
 
         courseService.saveOrUpdate(course);
-        System.out.println("The course information is updated successfully!");
-    }
-
-    public void viewCourse() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the course id: ");
-        long courseId = input.nextLong();
-
-        Course course = courseService.find(courseId);
-
-        EnrollmentView.printCourse(course);
+        GlobalView.printMessage("The course is updated successfully!");
     }
 
     public void deleteCourse() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the course id: ");
-        long courseId = input.nextLong();
+        long courseId = courseHelper.getCourseIdInput();
 
-        courseService.delete(courseId);
-        System.out.println("The course information is delete successfully!");
+        Course course = courseService.find(courseId);
+        if (isNull(course)) {
+            GlobalView.printMessage("No Course exists with the given id!");
+            return;
+        }
+
+        courseService.delete(course);
+        GlobalView.printMessage("The course is deleted successfully!");
     }
 }

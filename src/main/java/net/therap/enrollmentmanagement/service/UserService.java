@@ -17,19 +17,19 @@ public class UserService {
         userDao = new UserDao();
     }
 
-    public List<User> findAll() {
-        return userDao.findAll();
-    }
-
     public User find(long id) {
         return userDao.find(id);
+    }
+
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 
     public void saveOrUpdate(User user) {
         userDao.saveOrUpdate(user);
     }
 
-    public void delete(long id) {
-        userDao.delete(id);
+    public void delete(User user) {
+        userDao.delete(user);
     }
 }

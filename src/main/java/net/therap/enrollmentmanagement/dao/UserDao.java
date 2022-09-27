@@ -4,9 +4,8 @@ import net.therap.enrollmentmanagement.domain.User;
 import net.therap.enrollmentmanagement.util.EntityManagerSingleton;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author rumi.dipto
@@ -20,14 +19,15 @@ public class UserDao {
         em = EntityManagerSingleton.getInstance().getEntityManager();
     }
 
-    public List<User> findAll() {
-        Query query = em.createQuery("FROM User");
+    public User find(long id) {
+        Optional<User> user = Optional.ofNullable(em.find(User.class, id));
 
-        return query.getResultList();
+        return user.isPresent() ? user.get() : null;
     }
 
-    public User find(long id) {
-        return em.find(User.class, id);
+    public List<User> findAll() {
+        return em.createQuery("FROM User", User.class)
+                .getResultList();
     }
 
     public void saveOrUpdate(User user) {
@@ -42,14 +42,10 @@ public class UserDao {
         em.getTransaction().commit();
     }
 
-    public void delete(long id) {
-        User user = em.getReference(User.class, id);
-
+    public void delete(User user) {
         em.getTransaction().begin();
 
-        if (Objects.nonNull(user)) {
-            em.remove(user);
-        }
+        em.remove(user);
 
         em.getTransaction().commit();
     }

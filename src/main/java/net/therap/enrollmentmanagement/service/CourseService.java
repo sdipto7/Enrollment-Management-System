@@ -17,19 +17,19 @@ public class CourseService {
         courseDao = new CourseDao();
     }
 
-    public List<Course> findAll() {
-        return courseDao.findAll();
-    }
-
     public Course find(long id) {
         return courseDao.find(id);
+    }
+
+    public List<Course> findAll() {
+        return courseDao.findAll();
     }
 
     public void saveOrUpdate(Course course) {
         courseDao.saveOrUpdate(course);
     }
 
-    public void delete(long id) {
-        courseDao.delete(id);
+    public void delete(Course course) {
+        courseDao.delete(course);
     }
 }
